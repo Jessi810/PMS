@@ -62,7 +62,7 @@ public class Register extends AppCompatActivity implements Validator.ValidationL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        //Get Firebase auth instance
+        // Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
         validator = new Validator(this);
