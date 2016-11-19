@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "423417537340",
+    "firebase_url": "https://pms-bgh-d79a0.firebaseio.com",
+    "project_id": "pms-bgh-d79a0",
+    "storage_bucket": "pms-bgh-d79a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423417537340:android:1f7c61b4aeeb8663",
+        "android_client_info": {
+          "package_name": "com.jessi.pms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423417537340-2ecrpbfu56ebjvfepg14cfj1s7obijog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAsvEb2d6rhSfeKvXaHuBCIO2pM6jxO7E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

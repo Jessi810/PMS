@@ -1,34 +1,122 @@
 package com.jessi.pms;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
+
+import java.util.List;
 
 /**
  * Created by Jessi on 11/19/2016.
  */
 
-public class Register extends AppCompatActivity {
+public class Register extends AppCompatActivity implements Validator.ValidationListener {
 
-    private EditText usernameEditText, passwordEditText, emailEditText;
+    private FirebaseAuth auth;
+    private Validator validator;
+    private boolean isFormValid = false;
+
+    @NotEmpty
+    @Email
+    private EditText emailEditText;
+
+    @NotEmpty
+    private EditText usernameEditText;
+
+    @NotEmpty
+    @Password
+    private EditText passwordEditText;
+
+    @ConfirmPassword
+    private EditText confirmPasswordEditText;
+
     private Button registerButton;
     private Spinner roleSpinner;
+    private ProgressBar loadingProgressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        //Get Firebase auth instance
+        auth = FirebaseAuth.getInstance();
+
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
+        emailEditText = (EditText) findViewById(R.id.email_edittext);
         usernameEditText = (EditText) findViewById(R.id.username_edittext);
         passwordEditText = (EditText) findViewById(R.id.password_edittext);
+        confirmPasswordEditText = (EditText) findViewById(R.id.confirmpassword_edittext);
         registerButton = (Button) findViewById(R.id.register_button);
         roleSpinner = (Spinner) findViewById(R.id.role_spinner);
+        loadingProgressBar = (ProgressBar) findViewById(R.id.loading_progressbar);
+        loadingProgressBar.setVisibility(View.GONE);
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validator.validate();
+
+                if(isFormValid) {
+                    loadingProgressBar.setVisibility(View.VISIBLE);
+
+                    String email = emailEditText.getText().toString().trim();
+                    String username = usernameEditText.getText().toString().trim();
+                    String password = passwordEditText.getText().toString().trim();
+                    String confirmPassword = confirmPasswordEditText.getText().toString().trim();
+                    String role = roleSpinner.getSelectedItem().toString();
+                    Log.v("firebase", email);
+                    Log.v("firebase", username);
+                    Log.v("firebase", password);
+                    Log.v("firebase", confirmPassword);
+                    Log.v("firebase", role);
+
+                    auth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    Log.v("firebase", "onComplete");
+
+                                    loadingProgressBar.setVisibility(View.GONE);
+
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(Register.this, "Authentication failed. " + task.getException().getMessage(),
+                                                Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(Register.this, "Registration complete.", Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(Register.this, Home.class));
+                                        finish();
+                                    }
+                                }
+                            });
+                }
+            }
+        });
     }
 
     @Override
@@ -40,5 +128,29 @@ public class Register extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        isFormValid = true;
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        isFormValid = false;
+
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
+
+        loadingProgressBar.setVisibility(View.GONE);
     }
 }
