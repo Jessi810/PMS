@@ -91,6 +91,7 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadingProgressBar.setVisibility(View.VISIBLE);
                 validator.validate();
 
                 if(isFormValid) {
@@ -130,7 +131,7 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
             @Override
             public void onClick(View v) {
                 Intent homeIntent = new Intent(AddPatient.this, Home.class);
-                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(homeIntent);
             }
         });

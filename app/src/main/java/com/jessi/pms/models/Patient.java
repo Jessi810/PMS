@@ -29,4 +29,69 @@ public class Patient {
         this.dateAdmitted = dateAdmitted;
         this.timeAdmitted = timeAdmitted;
     }
+
+    public String getCaseNumber() {
+        return caseNumber;
+    }
+
+    public void setCaseNumber(String caseNumber) {
+        this.caseNumber = caseNumber;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getPhysician() {
+        return physician;
+    }
+
+    public void setPhysician(String physician) {
+        this.physician = physician;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public String getDateAdmitted() {
+        return dateAdmitted;
+    }
+
+    public void setDateAdmitted(String dateAdmitted) {
+        this.dateAdmitted = dateAdmitted;
+    }
+
+    public String getTimeAdmitted() {
+        return timeAdmitted;
+    }
+
+    public void setTimeAdmitted(String timeAdmitted) {
+        this.timeAdmitted = timeAdmitted;
+    }
+
+    public String getDateTimeAdmitted() {
+        return dateAdmitted + " " + timeAdmitted;
+    }
+
+    public void setDateTimeAdmitted(String dateAdmitted, String timeAdmitted) {
+        this.dateAdmitted = dateAdmitted;
+        this.timeAdmitted = timeAdmitted;
+    }
 }

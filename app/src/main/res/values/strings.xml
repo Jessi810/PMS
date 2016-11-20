@@ -23,6 +23,8 @@
     <string name="hint_dateadmitted">Date Admitted</string>
     <string name="hint_timeadmitted">Time Admitted</string>
     <string name="action_addpatient">Add Patient</string>
+    <string name="app_patient_list">Patient List</string>
+    <string name="action_patientlist">Patient List</string>
     <string-array name="roles_array">
         <item>Nurse</item>
         <item>Head Nurse</item>

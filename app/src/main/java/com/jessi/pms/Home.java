@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.jessi.pms.models.Patient;
 
 public class Home extends AppCompatActivity {
 
@@ -52,7 +53,16 @@ public class Home extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_addpatient) {
             Intent addPatientIntent = new Intent(this, AddPatient.class);
+            addPatientIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            addPatientIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(addPatientIntent);
+            return true;
+        }
+        if (id == R.id.action_patientlist) {
+            Intent patientListIntent = new Intent(this, PatientList.class);
+            patientListIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            patientListIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(patientListIntent);
             return true;
         }
         if (id == R.id.action_profile) {

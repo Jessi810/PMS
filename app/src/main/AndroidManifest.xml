@@ -30,6 +30,8 @@
             android:label="@string/app_change_password" />
         <activity android:name=".AddPatient"
             android:label="@string/app_add_patient" />
+        <activity android:name=".PatientList"
+            android:label="@string/app_patient_list" />
     </application>
 
 </manifest>
