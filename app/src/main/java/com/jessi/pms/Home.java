@@ -50,7 +50,9 @@ public class Home extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_profile) {
+            Intent profileIntent = new Intent(this, Profile.class);
+            startActivity(profileIntent);
             return true;
         }
         if (id == R.id.action_logout) {
@@ -64,7 +66,6 @@ public class Home extends AppCompatActivity {
 
     private void loadLoginView() {
         Intent intent = new Intent(this, Login.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

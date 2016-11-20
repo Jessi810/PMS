@@ -24,6 +24,8 @@
             android:label="@string/app_login" />
         <activity android:name=".Register"
             android:label="@string/app_register" />
+        <activity android:name=".Profile"
+            android:label="@string/app_profile" />
     </application>
 
 </manifest>

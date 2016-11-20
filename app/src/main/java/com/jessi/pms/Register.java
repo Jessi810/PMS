@@ -20,6 +20,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.jessi.pms.models.Users;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
@@ -36,6 +40,9 @@ import java.util.List;
 public class Register extends AppCompatActivity implements Validator.ValidationListener {
 
     private FirebaseAuth auth;
+    private FirebaseUser user;
+    private DatabaseReference database;
+    private String userId;
     private Validator validator;
     private boolean isFormValid = false;
 
@@ -64,6 +71,7 @@ public class Register extends AppCompatActivity implements Validator.ValidationL
 
         // Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance().getReference();
 
         validator = new Validator(this);
         validator.setValidationListener(this);
@@ -85,11 +93,11 @@ public class Register extends AppCompatActivity implements Validator.ValidationL
                 if(isFormValid) {
                     loadingProgressBar.setVisibility(View.VISIBLE);
 
-                    String email = emailEditText.getText().toString().trim();
-                    String username = usernameEditText.getText().toString().trim();
-                    String password = passwordEditText.getText().toString().trim();
-                    String confirmPassword = confirmPasswordEditText.getText().toString().trim();
-                    String role = roleSpinner.getSelectedItem().toString();
+                    final String email = emailEditText.getText().toString().trim();
+                    final String username = usernameEditText.getText().toString().trim();
+                    final String password = passwordEditText.getText().toString().trim();
+                    final String confirmPassword = confirmPasswordEditText.getText().toString().trim();
+                    final String role = roleSpinner.getSelectedItem().toString();
                     Log.v("firebase", email);
                     Log.v("firebase", username);
                     Log.v("firebase", password);
@@ -108,6 +116,12 @@ public class Register extends AppCompatActivity implements Validator.ValidationL
                                         Toast.makeText(Register.this, "Authentication failed. " + task.getException().getMessage(),
                                                 Toast.LENGTH_LONG).show();
                                     } else {
+                                        user = auth.getCurrentUser();
+                                        userId = user.getUid();
+
+                                        Users user = new Users(email, username, password, role);
+                                        database.child("Users").child(userId).setValue(user);
+
                                         Toast.makeText(Register.this, "Registration complete.", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(Register.this, Home.class));
                                         finish();
