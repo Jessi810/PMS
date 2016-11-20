@@ -4,19 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jessi.pms.adapters.PatientListAdapter;
 import com.jessi.pms.models.Patient;
+
+import java.util.ArrayList;
 
 /**
  * Created by Jessi on 11/20/2016.
@@ -45,52 +47,34 @@ public class PatientList extends AppCompatActivity {
         }
 
         // Set up ListView
-        final ListView patientsListView = (ListView) findViewById(R.id.patients_listview);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
-        patientsListView.setAdapter(adapter);
+//        final ListView patientsListView = (ListView) findViewById(R.id.patients_listview);
+//        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
+//        patientsListView.setAdapter(adapter);
+
+        // Construct the data source
+        ArrayList<Patient> arrayOfUsers = new ArrayList<>();
+        // Create the adapter to convert the array to views
+        final PatientListAdapter adapter = new PatientListAdapter(this, arrayOfUsers);
+        // Attach the adapter to a ListView
+        ListView listView = (ListView) findViewById(R.id.patients_listview);
+        listView.setAdapter(adapter);
 
         database.child("patients").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                adapter.clear();
+
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Patient patient = postSnapshot.getValue(Patient.class);
-                    adapter.add(patient.getFullName());
+                    adapter.add(patient);
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Toast.makeText(getApplication(), "Error retrieving list of patients", Toast.LENGTH_LONG).show();
             }
         });
-
-        // Use Firebase to populate the list.
-//        database.child("patients").child("1000").addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                adapter.add((String) dataSnapshot.child("fullname").getValue());
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                adapter.remove((String) dataSnapshot.child("title").getValue());
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
     }
 
     private void loadLoginView() {

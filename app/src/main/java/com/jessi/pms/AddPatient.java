@@ -106,7 +106,7 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
                     Patient patient = new Patient(caseNumber, fullName, sex, physician, room,
                             dateAdmitted, timeAdmitted);
 
-                    database.child("patients").child(caseNumber).setValue(patient).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    database.child("patients").push().setValue(patient).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(AddPatient.this, "Patient successfully added", Toast.LENGTH_LONG).show();
