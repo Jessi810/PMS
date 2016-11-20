@@ -79,10 +79,9 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(Login.this, "Login successful. ", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_LONG).show();
                                         Intent homeIntent = new Intent(Login.this, Home.class);
-                                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(homeIntent);
                                     } else {
                                         Toast.makeText(Login.this, "Authentication failed. " + task.getException().getMessage(),
