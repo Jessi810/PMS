@@ -7,6 +7,7 @@ package com.jessi.pms.models;
 public class Users {
     public String email;
     public String username;
+    public String fullname;
     public String password;
     public String role;
 
@@ -14,11 +15,12 @@ public class Users {
 
     }
 
-    public Users(String email, String username, String password, String role) {
+    public Users(String email, String username, String fullname, String password, String role) {
         super();
 
         this.email = email;
         this.username = username;
+        this.fullname = fullname;
         this.password = password;
         this.role = role;
     }

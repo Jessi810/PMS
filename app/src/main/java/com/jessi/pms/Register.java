@@ -28,6 +28,7 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 
@@ -60,6 +61,10 @@ public class Register extends AppCompatActivity implements Validator.ValidationL
     @ConfirmPassword
     private EditText confirmPasswordEditText;
 
+    @NotEmpty
+    @Length(min = 2, max = 100)
+    private EditText fullNameEditText;
+
     private Button registerButton;
     private Spinner roleSpinner;
     private ProgressBar loadingProgressBar;
@@ -78,6 +83,7 @@ public class Register extends AppCompatActivity implements Validator.ValidationL
 
         emailEditText = (EditText) findViewById(R.id.email_edittext);
         usernameEditText = (EditText) findViewById(R.id.username_edittext);
+        fullNameEditText = (EditText) findViewById(R.id.fullname_edittext);
         passwordEditText = (EditText) findViewById(R.id.password_edittext);
         confirmPasswordEditText = (EditText) findViewById(R.id.confirmpassword_edittext);
         registerButton = (Button) findViewById(R.id.register_button);
@@ -95,11 +101,13 @@ public class Register extends AppCompatActivity implements Validator.ValidationL
 
                     final String email = emailEditText.getText().toString().trim();
                     final String username = usernameEditText.getText().toString().trim();
+                    final String fullname = fullNameEditText.getText().toString().trim();
                     final String password = passwordEditText.getText().toString().trim();
                     final String confirmPassword = confirmPasswordEditText.getText().toString().trim();
                     final String role = roleSpinner.getSelectedItem().toString();
                     Log.v("firebase", email);
                     Log.v("firebase", username);
+                    Log.v("firebase", fullname);
                     Log.v("firebase", password);
                     Log.v("firebase", confirmPassword);
                     Log.v("firebase", role);
@@ -119,7 +127,7 @@ public class Register extends AppCompatActivity implements Validator.ValidationL
                                         user = auth.getCurrentUser();
                                         userId = user.getUid();
 
-                                        Users user = new Users(email, username, password, role);
+                                        Users user = new Users(email, username, fullname, password, role);
                                         database.child("Users").child(userId).setValue(user);
 
                                         Toast.makeText(Register.this, "Registration complete.", Toast.LENGTH_LONG).show();

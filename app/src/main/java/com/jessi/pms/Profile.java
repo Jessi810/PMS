@@ -90,11 +90,13 @@ public class Profile extends AppCompatActivity implements Validator.ValidationLi
                     database.child("Users").child(userId).addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            Toast.makeText(Profile.this, "Account is updated!", Toast.LENGTH_LONG).show();
                             loadingProgressBar.setVisibility(View.GONE);
                         }
 
                         @Override
                         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                            Toast.makeText(Profile.this, "Account is updated!", Toast.LENGTH_LONG).show();
                             loadingProgressBar.setVisibility(View.GONE);
                         }
 
