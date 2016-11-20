@@ -8,6 +8,8 @@
     <string name="hint_password">Password</string>
     <string name="hint_email">Email Address</string>
     <string name="hint_confirmpassword">Confirm Password</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_exit">Exit</string>
     <string-array name="roles_array">
         <item>Nurse</item>
         <item>Head Nurse</item>

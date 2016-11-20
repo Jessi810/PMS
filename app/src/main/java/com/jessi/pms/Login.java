@@ -61,6 +61,7 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
         registerTextView = (TextView) findViewById(R.id.register_textview);
         roleSpinner = (Spinner) findViewById(R.id.role_spinner);
         loadingProgressBar = (ProgressBar) findViewById(R.id.loading_progressbar);
+        loadingProgressBar.setVisibility(View.GONE);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +112,13 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_exit) {
+            System.exit(0);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
