@@ -40,18 +40,11 @@ public class Profile extends AppCompatActivity implements Validator.ValidationLi
     private String userId;
 
     @Length(min = 2, max = 100)
-    @Nullable
     private EditText fullnameEditText;
 
-    @Password
-    @Nullable
-    private EditText newPasswordEditText;
 
-    @ConfirmPassword
-    @Nullable
-    private EditText confirmPasswordEditText;
 
-    private Button saveButton, cancelButton;
+    private Button saveButton, cancelButton, changePasswordButton;
     private boolean isFormValid = false;
     private ProgressBar loadingProgressBar;
 
@@ -75,10 +68,9 @@ public class Profile extends AppCompatActivity implements Validator.ValidationLi
         validator.setValidationListener(this);
 
         fullnameEditText = (EditText) findViewById(R.id.fullname_edittext);
-        newPasswordEditText = (EditText) findViewById(R.id.newpassword_edittext);
-        confirmPasswordEditText = (EditText) findViewById(R.id.confirmpassword_edittext);
         saveButton = (Button) findViewById(R.id.save_button);
         cancelButton = (Button) findViewById(R.id.cancel_button);
+        changePasswordButton = (Button) findViewById(R.id.changepassword_button);
         loadingProgressBar = (ProgressBar) findViewById(R.id.loading_progressbar);
         loadingProgressBar.setVisibility(View.GONE);
 
@@ -90,8 +82,6 @@ public class Profile extends AppCompatActivity implements Validator.ValidationLi
 
                 if(isFormValid) {
                     String fullname = fullnameEditText.getText().toString().trim();
-                    String newPassword = newPasswordEditText.getText().toString().trim();
-                    String confirmPassword = confirmPasswordEditText.getText().toString().trim();
 
                     userId = user.getUid();
 
@@ -133,6 +123,14 @@ public class Profile extends AppCompatActivity implements Validator.ValidationLi
                 Intent homeIntent = new Intent(Profile.this, Home.class);
                 homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(homeIntent);
+            }
+        });
+
+        changePasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent changePasswordIntent = new Intent(Profile.this, ChangePassword.class);
+                startActivity(changePasswordIntent);
             }
         });
     }

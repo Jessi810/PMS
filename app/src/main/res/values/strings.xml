@@ -14,6 +14,7 @@
     <string name="hint_fullname">Fullname</string>
     <string name="hint_newpassword">New Password</string>
     <string name="app_profile">My Account</string>
+    <string name="app_change_password">Change Password</string>
     <string-array name="roles_array">
         <item>Nurse</item>
         <item>Head Nurse</item>

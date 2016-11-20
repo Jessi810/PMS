@@ -26,6 +26,8 @@
             android:label="@string/app_register" />
         <activity android:name=".Profile"
             android:label="@string/app_profile" />
+        <activity android:name=".ChangePassword"
+            android:label="@string/app_change_password" />
     </application>
 
 </manifest>
