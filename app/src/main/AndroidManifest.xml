@@ -28,6 +28,8 @@
             android:label="@string/app_profile" />
         <activity android:name=".ChangePassword"
             android:label="@string/app_change_password" />
+        <activity android:name=".AddPatient"
+            android:label="@string/app_add_patient" />
     </application>
 
 </manifest>

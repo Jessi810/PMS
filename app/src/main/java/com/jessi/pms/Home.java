@@ -50,6 +50,11 @@ public class Home extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.action_addpatient) {
+            Intent addPatientIntent = new Intent(this, AddPatient.class);
+            startActivity(addPatientIntent);
+            return true;
+        }
         if (id == R.id.action_profile) {
             Intent profileIntent = new Intent(this, Profile.class);
             startActivity(profileIntent);

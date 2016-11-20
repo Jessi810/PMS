@@ -15,6 +15,14 @@
     <string name="hint_newpassword">New Password</string>
     <string name="app_profile">My Account</string>
     <string name="app_change_password">Change Password</string>
+    <string name="app_add_patient">Add Patient</string>
+    <string name="hint_casenumber">Case Number</string>
+    <string name="hint_sex">Sex</string>
+    <string name="hint_physician">Physician</string>
+    <string name="hint_room">Room</string>
+    <string name="hint_dateadmitted">Date Admitted</string>
+    <string name="hint_timeadmitted">Time Admitted</string>
+    <string name="action_addpatient">Add Patient</string>
     <string-array name="roles_array">
         <item>Nurse</item>
         <item>Head Nurse</item>
