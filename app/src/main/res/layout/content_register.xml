@@ -77,7 +77,7 @@
         android:layout_alignParentStart="true">
 
         <EditText
-            android:text="Foo Bar"
+            android:text="foobar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"

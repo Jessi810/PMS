@@ -30,6 +30,7 @@
         android:layout_marginTop="121dp">
 
         <EditText
+            android:text="foobar@example.com"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -48,6 +49,7 @@
         android:layout_alignEnd="@+id/input_layout_username">
 
         <EditText
+            android:text="foobar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"

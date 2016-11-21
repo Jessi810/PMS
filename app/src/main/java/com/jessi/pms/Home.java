@@ -65,6 +65,13 @@ public class Home extends AppCompatActivity {
             startActivity(patientListIntent);
             return true;
         }
+        if (id == R.id.action_userlog) {
+            Intent patientListIntent = new Intent(this, Log.class);
+            patientListIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            patientListIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(patientListIntent);
+            return true;
+        }
         if (id == R.id.action_profile) {
             Intent profileIntent = new Intent(this, Profile.class);
             startActivity(profileIntent);
@@ -82,6 +89,7 @@ public class Home extends AppCompatActivity {
     private void loadLoginView() {
         Intent intent = new Intent(this, Login.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }

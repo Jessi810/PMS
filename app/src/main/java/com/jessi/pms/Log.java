@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,25 +15,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jessi.pms.adapters.PatientListAdapter;
+import com.jessi.pms.adapters.UserLogAdapter;
 import com.jessi.pms.models.Patient;
+import com.jessi.pms.models.UserLog;
 
 import java.util.ArrayList;
 
 /**
- * Created by Jessi on 11/20/2016.
+ * Created by Jessi on 11/21/2016.
  */
 
-public class PatientList extends AppCompatActivity {
+public class Log extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
     private DatabaseReference database;
-    private ListView patientsListView;
+    private ListView userLogListView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_list);
+        setContentView(R.layout.activity_log);
 
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance();
@@ -46,27 +47,22 @@ public class PatientList extends AppCompatActivity {
             loadLoginView();
         }
 
-        // Set up ListView
-//        final ListView patientsListView = (ListView) findViewById(R.id.patients_listview);
-//        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
-//        patientsListView.setAdapter(adapter);
-
         // Construct the data source
-        ArrayList<Patient> arrayOfUsers = new ArrayList<>();
+        ArrayList<UserLog> arrayOfUsers = new ArrayList<>();
         // Create the adapter to convert the array to views
-        final PatientListAdapter adapter = new PatientListAdapter(this, arrayOfUsers);
+        final UserLogAdapter adapter = new UserLogAdapter(this, arrayOfUsers);
         // Attach the adapter to a ListView
-        ListView listView = (ListView) findViewById(R.id.patients_listview);
-        listView.setAdapter(adapter);
+        userLogListView = (ListView) findViewById(R.id.userlog_listview);
+        userLogListView.setAdapter(adapter);
 
-        database.child("Patients").addValueEventListener(new ValueEventListener() {
+        database.child("Logs").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter.clear();
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Patient patient = postSnapshot.getValue(Patient.class);
-                    adapter.add(patient);
+                    UserLog userLog = postSnapshot.getValue(UserLog.class);
+                    adapter.add(userLog);
                 }
             }
 
@@ -80,7 +76,6 @@ public class PatientList extends AppCompatActivity {
     private void loadLoginView() {
         Intent intent = new Intent(this, Login.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }

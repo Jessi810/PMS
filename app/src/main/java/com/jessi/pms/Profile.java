@@ -25,7 +25,9 @@ import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.Password;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jessi on 11/20/2016.
@@ -85,8 +87,10 @@ public class Profile extends AppCompatActivity implements Validator.ValidationLi
 
                     userId = user.getUid();
 
-                    EditUser user = new EditUser(fullname);
-                    database.child("Users").child(userId).setValue(user);
+                    //EditUser user = new EditUser(fullname);
+                    Map<String, Object> newInfo = new HashMap<String, Object>();
+                    newInfo.put("fullname", fullname);
+                    database.child("Users").child(userId).updateChildren(newInfo);
                     database.child("Users").child(userId).addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -164,6 +168,7 @@ public class Profile extends AppCompatActivity implements Validator.ValidationLi
     private void loadLoginView() {
         Intent intent = new Intent(this, Login.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }

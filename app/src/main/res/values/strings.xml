@@ -25,9 +25,15 @@
     <string name="action_addpatient">Add Patient</string>
     <string name="app_patient_list">Patient List</string>
     <string name="action_patientlist">Patient List</string>
+    <string name="app_user_log">User Log</string>
+    <string name="action_userlog">User Logs</string>
     <string-array name="roles_array">
         <item>Nurse</item>
         <item>Head Nurse</item>
         <item>Doctor</item>
+    </string-array>
+    <string-array name="sex_array">
+        <item>Male</item>
+        <item>Female</item>
     </string-array>
 </resources>

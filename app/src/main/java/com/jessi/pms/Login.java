@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.*;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,10 +22,20 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
+import com.jessi.pms.models.UserLog;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,7 +54,13 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
     private ProgressBar loadingProgressBar;
 
     private FirebaseAuth auth;
+    private FirebaseUser user;
+    private DatabaseReference database;
     private Validator validator;
+    private String userId;
+    private String currentUsername;
+    private String role;
+    private String uid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +69,7 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
 
         // Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance().getReference();
 
         validator = new Validator(this);
         validator.setValidationListener(this);
@@ -71,7 +90,7 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
                 if(isFormValid) {
                     loadingProgressBar.setVisibility(View.VISIBLE);
 
-                    String username = usernameEditText.getText().toString().trim();
+                    final String username = usernameEditText.getText().toString().trim();
                     String password = passwordEditText.getText().toString().trim();
 
                     auth.signInWithEmailAndPassword(username, password)
@@ -80,12 +99,40 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_LONG).show();
+
+                                        user = auth.getCurrentUser();
+                                        userId = user.getUid();
+
+                                        // Get the username and role of the logged in user
+                                        database.child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                currentUsername = dataSnapshot.child("username").getValue().toString();
+                                                role = dataSnapshot.child("role").getValue().toString();
+                                                Log.v("Logs", userId);
+                                                Log.v("Logs", currentUsername);
+                                                Log.v("Logs", role);
+
+                                                UserLog userLog = new UserLog(userId, role, currentUsername);
+                                                uid = database.child("Logs").push().getKey();
+                                                Log.v("Logs", uid);
+                                                database.child("Logs").child(uid).setValue(userLog);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+
                                         Intent homeIntent = new Intent(Login.this, Home.class);
-                                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(homeIntent);
                                     } else {
                                         Toast.makeText(Login.this, "Authentication failed. " + task.getException().getMessage(),
                                                 Toast.LENGTH_LONG).show();
+                                        loadingProgressBar.setVisibility(View.GONE);
                                     }
                                 }
                             });
@@ -113,10 +160,10 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-//        if (id == R.id.action_exit) {
-//            System.exit(0);
-//            return true;
-//        }
+        if (id == R.id.action_exit) {
+            System.exit(0);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

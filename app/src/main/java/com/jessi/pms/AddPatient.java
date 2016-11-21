@@ -106,7 +106,7 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
                     Patient patient = new Patient(caseNumber, fullName, sex, physician, room,
                             dateAdmitted, timeAdmitted);
 
-                    database.child("patients").push().setValue(patient).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    database.child("Patients").push().setValue(patient).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(AddPatient.this, "Patient successfully added", Toast.LENGTH_LONG).show();
@@ -114,12 +114,13 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
 
                             Intent homeIntent = new Intent(AddPatient.this, Home.class);
                             homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(homeIntent);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(AddPatient.this, "Failed adding the patient information. Check your internet connection", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddPatient.this, e.getMessage(), Toast.LENGTH_LONG).show();
                             loadingProgressBar.setVisibility(View.GONE);
                         }
                     });
@@ -140,6 +141,7 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
     private void loadLoginView() {
         Intent intent = new Intent(this, Login.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
