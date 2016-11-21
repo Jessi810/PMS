@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.jessi.pms.Home">
     <item
+        android:id="@+id/action_monitorpatient"
+        android:orderInCategory="40"
+        android:title="@string/action_monitorpatient"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_addpatient"
         android:orderInCategory="50"
         android:title="@string/action_addpatient"

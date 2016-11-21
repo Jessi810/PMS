@@ -51,6 +51,13 @@ public class Home extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.action_monitorpatient) {
+            Intent monitorPatientIntent = new Intent(this, MonitorPatient.class);
+            monitorPatientIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            monitorPatientIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(monitorPatientIntent);
+            return true;
+        }
         if (id == R.id.action_addpatient) {
             Intent addPatientIntent = new Intent(this, AddPatient.class);
             addPatientIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -66,10 +73,10 @@ public class Home extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_userlog) {
-            Intent patientListIntent = new Intent(this, Log.class);
-            patientListIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            patientListIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(patientListIntent);
+            Intent userLogIntent = new Intent(this, Log.class);
+            userLogIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            userLogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(userLogIntent);
             return true;
         }
         if (id == R.id.action_profile) {

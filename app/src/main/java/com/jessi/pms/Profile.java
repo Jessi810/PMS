@@ -136,6 +136,7 @@ public class Profile extends AppCompatActivity implements Validator.ValidationLi
             @Override
             public void onClick(View v) {
                 Intent changePasswordIntent = new Intent(Profile.this, ChangePassword.class);
+                changePasswordIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(changePasswordIntent);
             }
         });

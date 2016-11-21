@@ -27,6 +27,8 @@
     <string name="action_patientlist">Patient List</string>
     <string name="app_user_log">User Log</string>
     <string name="action_userlog">User Logs</string>
+    <string name="action_monitorpatient">Patient Monitoring</string>
+    <string name="app_monitor_patient">Patient Monitoring</string>
     <string-array name="roles_array">
         <item>Nurse</item>
         <item>Head Nurse</item>
