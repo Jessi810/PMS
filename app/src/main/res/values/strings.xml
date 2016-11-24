@@ -27,6 +27,9 @@
     <string name="action_patientlist">Patient List</string>
     <string name="app_user_log">User Log</string>
     <string name="action_userlog">User Logs</string>
+    <string name="items_delete">Delete</string>
+    <string name="items_addtomonitor">Add to Monitoring</string>
+    <string name="items_cancel">Cancel</string>
     <string-array name="roles_array">
         <item>Nurse</item>
         <item>Head Nurse</item>

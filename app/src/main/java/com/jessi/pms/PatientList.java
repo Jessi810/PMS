@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
+import android.util.*;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,7 +29,7 @@ import java.util.ArrayList;
  * Created by Jessi on 11/20/2016.
  */
 
-public class PatientList extends AppCompatActivity {
+public class PatientList extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -63,7 +66,14 @@ public class PatientList extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_SHORT).show();
+                PopupMenu popupMenu = new PopupMenu(PatientList.this, view);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_patient_list, popupMenu.getMenu());
+                popupMenu.show();
+
+                android.util.Log.v("Test", String.valueOf(parent));
+                android.util.Log.v("Test", String.valueOf(view));
+                android.util.Log.v("Test", String.valueOf(position));
+                android.util.Log.v("Test", String.valueOf(id));
             }
         });
 
@@ -90,5 +100,22 @@ public class PatientList extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.items_addtomonitor:
+                Toast.makeText(this, "Add to Monitor Clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.items_delete:
+                Toast.makeText(this, "Delete Clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.items_cancel:
+                Toast.makeText(this, "Cancel Clicked", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+
+        return false;
     }
 }
