@@ -44,7 +44,7 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
         // Populate the data into the template view using the data object
         caseNumberTextView.setText(patient.caseNumber);
         dateTimeTextView.setText(patient.dateAdmitted + " " + patient.timeAdmitted);
-        fullNameTextView.setText(patient.fullName);
+        fullNameTextView.setText(patient.fullname);
         sexTextView.setText(patient.sex);
         physicianTextView.setText(patient.physician);
         roomTextView.setText(patient.room);

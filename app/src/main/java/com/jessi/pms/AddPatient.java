@@ -96,14 +96,14 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
 
                 if(isFormValid) {
                     String caseNumber = caseNumberEditText.getText().toString().trim();
-                    String fullName= fullNameEditText.getText().toString().trim();
+                    String fullname= fullNameEditText.getText().toString().trim();
                     String sex = sexEditText.getText().toString().trim();
                     String physician = physicianEditText.getText().toString().trim();
                     String room = roomEditText.getText().toString().trim();
                     String dateAdmitted = dateAdmittedEditText.getText().toString().trim();
                     String timeAdmitted = timeAdmittedEditText.getText().toString().trim();
 
-                    Patient patient = new Patient(caseNumber, fullName, sex, physician, room,
+                    Patient patient = new Patient(caseNumber, fullname, sex, physician, room,
                             dateAdmitted, timeAdmitted);
 
                     database.child("Patients").push().setValue(patient).addOnSuccessListener(new OnSuccessListener<Void>() {

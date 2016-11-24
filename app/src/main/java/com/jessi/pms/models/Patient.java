@@ -6,23 +6,21 @@ package com.jessi.pms.models;
 
 public class Patient {
     public String caseNumber;
-    public String fullName;
+    public String fullname;
     public String sex;
     public String physician;
     public String room;
     public String dateAdmitted;
     public String timeAdmitted;
 
-    public Patient() {
+    public Patient() { }
 
-    }
-
-    public Patient(String caseNumber, String fullName, String sex, String physician, String room,
+    public Patient(String caseNumber, String fullname, String sex, String physician, String room,
                    String dateAdmitted, String timeAdmitted) {
         super();
 
         this.caseNumber = caseNumber;
-        this.fullName= fullName;
+        this.fullname = fullname;
         this.sex = sex;
         this.physician= physician;
         this.room = room;
@@ -38,12 +36,12 @@ public class Patient {
         this.caseNumber = caseNumber;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getSex() {
@@ -83,15 +81,6 @@ public class Patient {
     }
 
     public void setTimeAdmitted(String timeAdmitted) {
-        this.timeAdmitted = timeAdmitted;
-    }
-
-    public String getDateTimeAdmitted() {
-        return dateAdmitted + " " + timeAdmitted;
-    }
-
-    public void setDateTimeAdmitted(String dateAdmitted, String timeAdmitted) {
-        this.dateAdmitted = dateAdmitted;
         this.timeAdmitted = timeAdmitted;
     }
 }

@@ -12,7 +12,6 @@ public class UserLog {
     public String username;
     public String date;
     public String time;
-    //public String datetime;
 
     public UserLog() {
     }
@@ -74,13 +73,4 @@ public class UserLog {
     public void setTime(String time) {
         this.time = time;
     }
-
-//    public String getDateAndTime() {
-//        return date + " " + time;
-//    }
-//
-//    public void setDateAndTime(String date, String time) {
-//        this.date = date;
-//        this.time = time;
-//    }
 }

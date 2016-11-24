@@ -7,9 +7,7 @@ package com.jessi.pms.models;
 public class EditUser {
     public String fullname;
 
-    public EditUser() {
-
-    }
+    public EditUser() { }
 
     public EditUser(String fullname) {
         super();
