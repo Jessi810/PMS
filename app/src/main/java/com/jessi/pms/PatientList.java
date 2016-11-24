@@ -6,11 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.util.*;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,8 +72,22 @@ public class PatientList extends AppCompatActivity implements MenuItem.OnMenuIte
                 popupMenu.getMenuInflater().inflate(R.menu.popup_patient_list, popupMenu.getMenu());
                 popupMenu.show();
 
-                android.util.Log.v("Test", String.valueOf(parent));
-                android.util.Log.v("Test", String.valueOf(view));
+                String idSelected = ((TextView)view.findViewById(R.id.list_id)).getText().toString();
+                String caseNumber = ((TextView)view.findViewById(R.id.list_casenumber)).getText().toString();
+                String dateTime = ((TextView)view.findViewById(R.id.list_datetime)).getText().toString();
+                String fullName = ((TextView)view.findViewById(R.id.list_fullname)).getText().toString();
+                String sex = ((TextView)view.findViewById(R.id.list_sex)).getText().toString();
+                String physician = ((TextView)view.findViewById(R.id.list_physician)).getText().toString();
+                String room = ((TextView)view.findViewById(R.id.list_room)).getText().toString();
+
+                android.util.Log.v("Test", "Id: " + idSelected);
+                android.util.Log.v("Test", "Case#: " + caseNumber);
+                android.util.Log.v("Test", "DateTime: " + dateTime);
+                android.util.Log.v("Test", "FullName: " + fullName);
+                android.util.Log.v("Test", "Sex: " + sex);
+                android.util.Log.v("Test", "Physician: " + physician);
+                android.util.Log.v("Test", "Room: " + room);
+
                 android.util.Log.v("Test", String.valueOf(position));
                 android.util.Log.v("Test", String.valueOf(id));
             }
@@ -85,6 +101,7 @@ public class PatientList extends AppCompatActivity implements MenuItem.OnMenuIte
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Patient patient = postSnapshot.getValue(Patient.class);
                     adapter.add(patient);
+                    Log.v("Test", dataSnapshot.toString());
                 }
             }
 

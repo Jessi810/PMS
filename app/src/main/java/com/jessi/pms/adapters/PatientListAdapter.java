@@ -12,6 +12,7 @@ import com.jessi.pms.R;
 import com.jessi.pms.models.Patient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,6 +20,8 @@ import java.util.List;
  */
 
 public class PatientListAdapter extends ArrayAdapter<Patient> {
+    private HashMap<String, String> textValues = new HashMap<String, String>();
+
     public PatientListAdapter(Context context, ArrayList<Patient> patient) {
         super(context, 0, patient);
     }
@@ -42,12 +45,20 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
         TextView roomTextView = (TextView) convertView.findViewById(R.id.list_room);
 
         // Populate the data into the template view using the data object
+        idTextView.setText(patient.id);
         caseNumberTextView.setText(patient.caseNumber);
         dateTimeTextView.setText(patient.dateAdmitted + " " + patient.timeAdmitted);
         fullNameTextView.setText(patient.fullname);
         sexTextView.setText(patient.sex);
         physicianTextView.setText(patient.physician);
         roomTextView.setText(patient.room);
+
+        caseNumberTextView.setTag("caseNumber" + position);
+        dateTimeTextView.setTag("dateTime" + position);
+        fullNameTextView.setTag("fullName" + position);
+        sexTextView.setTag("sex" + position);
+        physicianTextView.setTag("physician" + position);
+        roomTextView.setTag("room" + position);
 
         // Return the completed view to render on screen
         return convertView;

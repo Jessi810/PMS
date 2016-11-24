@@ -5,6 +5,7 @@ package com.jessi.pms.models;
  */
 
 public class Patient {
+    public String id;
     public String caseNumber;
     public String fullname;
     public String sex;
@@ -28,6 +29,28 @@ public class Patient {
         this.room = room;
         this.dateAdmitted = dateAdmitted;
         this.timeAdmitted = timeAdmitted;
+    }
+
+    public Patient(String id, String caseNumber, String fullname, String sex, String physician, String room,
+                   String dateAdmitted, String timeAdmitted) {
+        super();
+
+        this.id = id;
+        this.caseNumber = caseNumber;
+        this.fullname= fullname;
+        this.sex = sex;
+        this.physician= physician;
+        this.room = room;
+        this.dateAdmitted = dateAdmitted;
+        this.timeAdmitted = timeAdmitted;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCaseNumber() {

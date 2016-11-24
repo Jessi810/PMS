@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.*;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +25,9 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jessi on 11/20/2016.
@@ -57,6 +60,9 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
     private ProgressBar loadingProgressBar;
 
     private boolean isFormValid = false;
+
+    private Patient patient;
+    private String uid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,18 +101,20 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
                 validator.validate();
 
                 if(isFormValid) {
-                    String caseNumber = caseNumberEditText.getText().toString().trim();
-                    String fullname= fullNameEditText.getText().toString().trim();
-                    String sex = sexEditText.getText().toString().trim();
-                    String physician = physicianEditText.getText().toString().trim();
-                    String room = roomEditText.getText().toString().trim();
-                    String dateAdmitted = dateAdmittedEditText.getText().toString().trim();
-                    String timeAdmitted = timeAdmittedEditText.getText().toString().trim();
+                    final String caseNumber = caseNumberEditText.getText().toString().trim();
+                    final String fullname= fullNameEditText.getText().toString().trim();
+                    final String sex = sexEditText.getText().toString().trim();
+                    final String physician = physicianEditText.getText().toString().trim();
+                    final String room = roomEditText.getText().toString().trim();
+                    final String dateAdmitted = dateAdmittedEditText.getText().toString().trim();
+                    final String timeAdmitted = timeAdmittedEditText.getText().toString().trim();
 
-                    Patient patient = new Patient(caseNumber, fullname, sex, physician, room,
+                    uid = database.child("Patients").push().getKey();
+
+                    patient = new Patient(uid, caseNumber, fullname, sex, physician, room,
                             dateAdmitted, timeAdmitted);
 
-                    database.child("Patients").push().setValue(patient).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    database.child("Patients").child(uid).setValue(patient).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(AddPatient.this, "Patient successfully added", Toast.LENGTH_LONG).show();
