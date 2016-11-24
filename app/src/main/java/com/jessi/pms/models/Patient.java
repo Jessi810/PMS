@@ -13,14 +13,16 @@ public class Patient {
     public String dateAdmitted;
     public String timeAdmitted;
 
-    public Patient() { }
+    public Patient() {
+
+    }
 
     public Patient(String caseNumber, String fullname, String sex, String physician, String room,
                    String dateAdmitted, String timeAdmitted) {
         super();
 
         this.caseNumber = caseNumber;
-        this.fullname = fullname;
+        this.fullname= fullname;
         this.sex = sex;
         this.physician= physician;
         this.room = room;
@@ -36,11 +38,11 @@ public class Patient {
         this.caseNumber = caseNumber;
     }
 
-    public String getFullname() {
+    public String getfullname() {
         return fullname;
     }
 
-    public void setFullname(String fullname) {
+    public void setfullname(String fullname) {
         this.fullname = fullname;
     }
 
