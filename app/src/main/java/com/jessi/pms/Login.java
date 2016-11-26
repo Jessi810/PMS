@@ -35,6 +35,7 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -113,7 +114,11 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
                                                 Log.v("Logs", currentUsername);
                                                 Log.v("Logs", role);
 
-                                                UserLog userLog = new UserLog(userId, role, currentUsername);
+                                                Date date = new Date();
+                                                DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                                                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+                                                UserLog userLog = new UserLog(userId, role, currentUsername, dateFormat.format(date), timeFormat.format(date));
                                                 uid = database.child("Logs").push().getKey();
                                                 Log.v("Logs", uid);
                                                 database.child("Logs").child(uid).setValue(userLog);

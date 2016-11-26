@@ -38,6 +38,8 @@ public class PatientList extends AppCompatActivity implements MenuItem.OnMenuIte
     private DatabaseReference database;
     private ListView patientsListView;
 
+    String idSelected;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +73,26 @@ public class PatientList extends AppCompatActivity implements MenuItem.OnMenuIte
                 PopupMenu popupMenu = new PopupMenu(PatientList.this, view);
                 popupMenu.getMenuInflater().inflate(R.menu.popup_patient_list, popupMenu.getMenu());
                 popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.items_addtomonitor:
+                                Toast.makeText(getApplicationContext(), "Add to Monitor Clicked", Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.items_delete:
+                                database.child("Patients").child(idSelected).setValue(null);
+                                return true;
+                            case R.id.items_cancel:
+                                Toast.makeText(getApplicationContext(), "Cancel Clicked", Toast.LENGTH_SHORT).show();
+                                return true;
+                        }
 
-                String idSelected = ((TextView)view.findViewById(R.id.list_id)).getText().toString();
+                        return false;
+                    }
+                });
+
+                idSelected = ((TextView)view.findViewById(R.id.list_id)).getText().toString();
                 String caseNumber = ((TextView)view.findViewById(R.id.list_casenumber)).getText().toString();
                 String dateTime = ((TextView)view.findViewById(R.id.list_datetime)).getText().toString();
                 String fullName = ((TextView)view.findViewById(R.id.list_fullname)).getText().toString();
@@ -126,7 +146,7 @@ public class PatientList extends AppCompatActivity implements MenuItem.OnMenuIte
                 Toast.makeText(this, "Add to Monitor Clicked", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.items_delete:
-                Toast.makeText(this, "Delete Clicked", Toast.LENGTH_SHORT).show();
+                database.child("Patients").child(idSelected).setValue(null);
                 return true;
             case R.id.items_cancel:
                 Toast.makeText(this, "Cancel Clicked", Toast.LENGTH_SHORT).show();
