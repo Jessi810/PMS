@@ -7,6 +7,7 @@ import com.google.firebase.database.ServerValue;
  */
 
 public class UserLog {
+    public String key;
     public String id;
     public String role;
     public String username;
@@ -16,22 +17,41 @@ public class UserLog {
     public UserLog() {
     }
 
-    public UserLog(String id, String role, String username) {
+//    public UserLog(String id, String role, String username) {
+//        super();
+//
+//        this.id = id;
+//        this.role = role;
+//        this.username = username;
+//    }
+//
+//    public UserLog(String id, String role, String username, String date, String time) {
+//        super();
+//
+//        this.id = id;
+//        this.role = role;
+//        this.username = username;
+//        this.date = date;
+//        this.time = time;
+//    }
+
+    public UserLog(String key, String id, String role, String username, String date, String time) {
         super();
 
-        this.id = id;
-        this.role = role;
-        this.username = username;
-    }
-
-    public UserLog(String id, String role, String username, String date, String time) {
-        super();
-
+        this.key = key;
         this.id = id;
         this.role = role;
         this.username = username;
         this.date = date;
         this.time = time;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getId() {
