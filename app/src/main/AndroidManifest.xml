@@ -36,6 +36,8 @@
             android:label="@string/app_user_log" />
         <activity android:name=".PatientMonitor"
             android:label="@string/app_patient_monitor" />
+        <activity android:name=".ForgotPassword"
+            android:label="@string/app_forgotpassword" />
     </application>
 
 </manifest>

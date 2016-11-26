@@ -50,7 +50,7 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
     @NotEmpty
     private EditText usernameEditText, passwordEditText;
     private Button loginButton;
-    private TextView registerTextView;
+    private TextView registerTextView, forgotPasswordTextView;
     private Spinner roleSpinner;
     private ProgressBar loadingProgressBar;
 
@@ -79,6 +79,7 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
         passwordEditText = (EditText) findViewById(R.id.password_edittext);
         loginButton = (Button) findViewById(R.id.login_button);
         registerTextView = (TextView) findViewById(R.id.register_textview);
+        forgotPasswordTextView = (TextView) findViewById(R.id.forgotpassword_textview);
         roleSpinner = (Spinner) findViewById(R.id.role_spinner);
         loadingProgressBar = (ProgressBar) findViewById(R.id.loading_progressbar);
         loadingProgressBar.setVisibility(View.GONE);
@@ -155,6 +156,14 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
             public void onClick(View v) {
                 Intent registerIntent = new Intent(Login.this, Register.class);
                 startActivity(registerIntent);
+            }
+        });
+
+        forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent forgotPasswordIntent = new Intent(Login.this, ForgotPassword.class);
+                startActivity(forgotPasswordIntent);
             }
         });
     }
