@@ -7,32 +7,29 @@ package com.jessi.pms.models;
 public class Monitor {
     public String id;
     public String fullname;
-    public String nurseAssigned;
+    public String physician;
     public String room;
     public String medicine;
-    public String[] medicines;
     public boolean monitoring;
 
-    public Monitor() {}
+    public Monitor() {
+    }
 
-    public Monitor(String id, String fullname, String nurseAssigned, String room, String medicine) {
-        super();
-
+    public Monitor(String id, String fullname, String physician, String room, String medicine) {
         this.id = id;
         this.fullname = fullname;
-        this.nurseAssigned = nurseAssigned;
+        this.physician = physician;
         this.room = room;
         this.medicine = medicine;
     }
 
-    public Monitor(String id, String fullname, String nurseAssigned, String room, String[] medicines) {
-        super();
-
+    public Monitor(String id, String fullname, String physician, String room, String medicine, boolean monitoring) {
         this.id = id;
         this.fullname = fullname;
-        this.nurseAssigned = nurseAssigned;
+        this.physician = physician;
         this.room = room;
-        this.medicines = medicines;
+        this.medicine = medicine;
+        this.monitoring = monitoring;
     }
 
     public String getId() {
@@ -51,12 +48,12 @@ public class Monitor {
         this.fullname = fullname;
     }
 
-    public String getNurseAssigned() {
-        return nurseAssigned;
+    public String getPhysician() {
+        return physician;
     }
 
-    public void setNurseAssigned(String nurseAssigned) {
-        this.nurseAssigned = nurseAssigned;
+    public void setPhysician(String physician) {
+        this.physician = physician;
     }
 
     public String getRoom() {
@@ -75,7 +72,7 @@ public class Monitor {
         this.medicine = medicine;
     }
 
-    public boolean getMonitoring() {
+    public boolean isMonitoring() {
         return monitoring;
     }
 

@@ -51,11 +51,11 @@ public class Home extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_patientmonitoring) {
-            Intent patientMonitoringIntent = new Intent(this, PatientMonitor.class);
-            patientMonitoringIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            patientMonitoringIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(patientMonitoringIntent);
+        if (id == R.id.action_patientmonitor) {
+            Intent patientMonitorIntent = new Intent(this, PatientMonitor.class);
+            patientMonitorIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            patientMonitorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(patientMonitorIntent);
             return true;
         }
         if (id == R.id.action_addpatient) {

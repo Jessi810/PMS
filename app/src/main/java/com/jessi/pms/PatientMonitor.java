@@ -45,7 +45,7 @@ public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenu
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_list);
+        setContentView(R.layout.activity_patient_monitor);
 
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance();
@@ -62,22 +62,24 @@ public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenu
         // Create the adapter to convert the array to views
         final PatientMonitorAdapter adapter = new PatientMonitorAdapter(this, arrayOfUsers);
         // Attach the adapter to a ListView
-        ListView listView = (ListView) findViewById(R.id.patients_listview);
+        ListView listView = (ListView) findViewById(R.id.patient_monitor_listview);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 idSelected = ((TextView)view.findViewById(R.id.list_id)).getText().toString();
                 String fullName = ((TextView)view.findViewById(R.id.list_fullname)).getText().toString();
-                String nurseAssigned = ((TextView)view.findViewById(R.id.list_nurseassigned)).getText().toString();
+                String physician = ((TextView)view.findViewById(R.id.list_physician)).getText().toString();
                 String room = ((TextView)view.findViewById(R.id.list_room)).getText().toString();
-                String medicines = ((TextView)view.findViewById(R.id.list_medicines)).getText().toString();
+                String medicine = ((TextView)view.findViewById(R.id.list_medicine)).getText().toString();
 
                 Log.v("Test", "Id: " + idSelected);
                 Log.v("Test", "FullName: " + fullName);
-                Log.v("Test", "Nurse: " + nurseAssigned);
+                Log.v("Test", "Physician: " + physician);
                 Log.v("Test", "Room: " + room);
-                Log.v("Test", "Medicines: " + medicines);
+                Log.v("Test", "Medicine: " + medicine);
+                Log.v("Test", String.valueOf(position));
+                Log.v("Test", String.valueOf(id));
 
                 PopupMenu popupMenu = new PopupMenu(PatientMonitor.this, view);
                 popupMenu.getMenuInflater().inflate(R.menu.popup_patient_monitor, popupMenu.getMenu());
@@ -87,13 +89,16 @@ public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenu
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.items_removefrommonitor:
-                                Toast.makeText(getApplicationContext(), "Patient removed from monitoring", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Patient removed to monitoring.", Toast.LENGTH_SHORT).show();
 
                                 // Removes patient to monitoring
-                                Map<String, Object> newValue = new HashMap<String, Object>();
-                                newValue.put("monitoring", false);
-                                database.child("Patients").child(idSelected).updateChildren(newValue);
+                                Map<String, Object> newValues = new HashMap<>();
+                                newValues.put("monitoring", false);
+                                database.child("Patients").child(idSelected).updateChildren(newValues);
 
+                                return true;
+                            case R.id.items_delete:
+                                database.child("Patients").child(idSelected).setValue(null);
                                 return true;
                             case R.id.items_cancel:
                                 Toast.makeText(getApplicationContext(), "Cancel Clicked", Toast.LENGTH_SHORT).show();
@@ -110,7 +115,6 @@ public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenu
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter.clear();
-                String uid;
                 Monitor monitor;
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -141,10 +145,10 @@ public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenu
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.items_removefrommonitor:
-                //Toast.makeText(this, "Add to Monitor Clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.items_delete:
                 return true;
             case R.id.items_cancel:
-                Toast.makeText(this, "Cancel Clicked", Toast.LENGTH_SHORT).show();
                 return true;
         }
 

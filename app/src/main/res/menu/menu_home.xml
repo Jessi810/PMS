@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.jessi.pms.Home">
     <item
-        android:id="@+id/action_patientmonitoring"
+        android:id="@+id/action_patientmonitor"
         android:orderInCategory="40"
-        android:title="@string/action_patientmonitoring"
+        android:title="@string/action_patientmonitor"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_addpatient"

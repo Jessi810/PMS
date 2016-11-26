@@ -30,10 +30,10 @@
     <string name="items_delete">Delete</string>
     <string name="items_addtomonitor">Add to Monitoring</string>
     <string name="items_cancel">Cancel</string>
-    <string name="action_patientmonitoring">Patient Monitoring</string>
-    <string name="items_removetomonitor">Remove from Monitoring</string>
-    <string name="items_removefrommonitor">Remove from Monitoring</string>
     <string name="app_patient_monitor">Patient Monitoring</string>
+    <string name="items_removefrommonitor">Remove from Monitoring</string>
+    <string name="action_removepatient">Remove from Monitoring</string>
+    <string name="action_patientmonitor">Patient Monitoring</string>
     <string-array name="roles_array">
         <item>Nurse</item>
         <item>Head Nurse</item>

@@ -32,23 +32,22 @@ public class PatientMonitorAdapter extends ArrayAdapter<Monitor> {
         Monitor monitor = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_monitor, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_patients_monitor, parent, false);
         }
 
         // Lookup view for data population
         TextView idTextView = (TextView) convertView.findViewById(R.id.list_id);
         TextView fullNameTextView = (TextView) convertView.findViewById(R.id.list_fullname);
-        TextView sexTextView = (TextView) convertView.findViewById(R.id.list_sex);
-        TextView nurseAssignedTextView = (TextView) convertView.findViewById(R.id.list_nurseassigned);
+        TextView physicianTextView = (TextView) convertView.findViewById(R.id.list_physician);
         TextView roomTextView = (TextView) convertView.findViewById(R.id.list_room);
-        TextView medicinesTextView = (TextView) convertView.findViewById(R.id.list_medicines);
+        TextView medicineTextView = (TextView) convertView.findViewById(R.id.list_medicine);
 
         // Populate the data into the template view using the data object
         idTextView.setText(monitor.id);
         fullNameTextView.setText(monitor.fullname);
-        nurseAssignedTextView.setText(monitor.nurseAssigned);
+        physicianTextView.setText(monitor.physician);
         roomTextView.setText(monitor.room);
-        medicinesTextView.setText(monitor.medicine);
+        medicineTextView.setText(monitor.medicine);
 
         // Return the completed view to render on screen
         return convertView;
