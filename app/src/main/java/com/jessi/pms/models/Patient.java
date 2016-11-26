@@ -13,6 +13,7 @@ public class Patient {
     public String room;
     public String dateAdmitted;
     public String timeAdmitted;
+    public boolean monitoring;
 
     public Patient() {
 
@@ -43,6 +44,21 @@ public class Patient {
         this.room = room;
         this.dateAdmitted = dateAdmitted;
         this.timeAdmitted = timeAdmitted;
+    }
+
+    public Patient(String id, String caseNumber, String fullname, String sex, String physician, String room,
+                   String dateAdmitted, String timeAdmitted, boolean monitoring) {
+        super();
+
+        this.id = id;
+        this.caseNumber = caseNumber;
+        this.fullname= fullname;
+        this.sex = sex;
+        this.physician= physician;
+        this.room = room;
+        this.dateAdmitted = dateAdmitted;
+        this.timeAdmitted = timeAdmitted;
+        this.monitoring = monitoring;
     }
 
     public String getId() {
@@ -107,5 +123,13 @@ public class Patient {
 
     public void setTimeAdmitted(String timeAdmitted) {
         this.timeAdmitted = timeAdmitted;
+    }
+
+    public boolean isMonitoring() {
+        return monitoring;
+    }
+
+    public void setMonitoring(boolean monitoring) {
+        this.monitoring = monitoring;
     }
 }

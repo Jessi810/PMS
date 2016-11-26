@@ -72,6 +72,7 @@ public class PatientList extends AppCompatActivity implements MenuItem.OnMenuIte
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 idSelected = ((TextView)view.findViewById(R.id.list_id)).getText().toString();
                 String caseNumber = ((TextView)view.findViewById(R.id.list_casenumber)).getText().toString();
                 String dateTime = ((TextView)view.findViewById(R.id.list_datetime)).getText().toString();
@@ -99,12 +100,12 @@ public class PatientList extends AppCompatActivity implements MenuItem.OnMenuIte
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.items_addtomonitor:
-                                Toast.makeText(getApplicationContext(), "Patient added to monitoring", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Patient added to monitoring.", Toast.LENGTH_SHORT).show();
 
                                 // Adds patient to monitoring
-                                Map<String, Object> newValue = new HashMap<String, Object>();
-                                newValue.put("monitoring", true);
-                                database.child("Patients").child(idSelected).updateChildren(newValue);
+                                Map<String, Object> newValues = new HashMap<>();
+                                newValues.put("monitoring", true);
+                                database.child("Patients").child(idSelected).updateChildren(newValues);
 
                                 return true;
                             case R.id.items_delete:

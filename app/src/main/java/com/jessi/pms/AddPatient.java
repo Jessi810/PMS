@@ -112,7 +112,7 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
                     uid = database.child("Patients").push().getKey();
 
                     patient = new Patient(uid, caseNumber, fullname, sex, physician, room,
-                            dateAdmitted, timeAdmitted);
+                            dateAdmitted, timeAdmitted, false);
 
                     database.child("Patients").child(uid).setValue(patient).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
