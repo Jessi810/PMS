@@ -51,30 +51,38 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_sex"
+    <Spinner
+        android:id="@+id/sex_spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/input_layout_fullname"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true">
+        android:entries="@array/sex_array">
+    </Spinner>
 
-        <EditText
-            android:text="Male"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:hint="@string/hint_sex"
-            android:id="@+id/sex_edittext" />
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:id="@+id/input_layout_sex"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/input_layout_fullname"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentEnd="true">-->
 
-    </android.support.design.widget.TextInputLayout>
+        <!--<EditText-->
+            <!--android:text="Male"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:inputType="textPersonName"-->
+            <!--android:ems="10"-->
+            <!--android:hint="@string/hint_sex"-->
+            <!--android:id="@+id/sex_edittext" />-->
+
+    <!--</android.support.design.widget.TextInputLayout>-->
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_physician"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/input_layout_sex"
+        android:layout_below="@+id/sex_spinner"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true">
 

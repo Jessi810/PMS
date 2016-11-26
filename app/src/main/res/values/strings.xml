@@ -10,7 +10,7 @@
     <string name="hint_confirmpassword">Confirm Password</string>
     <string name="action_logout">Logout</string>
     <string name="action_exit">Exit</string>
-    <string name="action_profile">Account</string>
+    <string name="action_profile">Account Settings</string>
     <string name="hint_fullname">Fullname</string>
     <string name="hint_newpassword">New Password</string>
     <string name="app_profile">My Account</string>
@@ -23,7 +23,7 @@
     <string name="hint_dateadmitted">Date Admitted</string>
     <string name="hint_timeadmitted">Time Admitted</string>
     <string name="action_addpatient">Add Patient</string>
-    <string name="app_patient_list">Patient List</string>
+    <string name="app_patient_list">List of Patient</string>
     <string name="action_patientlist">Patient List</string>
     <string name="app_user_log">User Log</string>
     <string name="action_userlog">User Logs</string>
@@ -34,6 +34,7 @@
     <string name="items_removefrommonitor">Remove from Monitoring</string>
     <string name="action_removepatient">Remove from Monitoring</string>
     <string name="action_patientmonitor">Patient Monitoring</string>
+    <string name="action_clear">Clear</string>
     <string-array name="roles_array">
         <item>Nurse</item>
         <item>Head Nurse</item>

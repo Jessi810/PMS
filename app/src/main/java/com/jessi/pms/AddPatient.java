@@ -6,10 +6,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.*;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,8 +48,7 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
     private EditText caseNumberEditText;
     @NotEmpty
     private EditText fullNameEditText;
-    @NotEmpty
-    private EditText sexEditText;
+    private Spinner sexSpinner;
     @NotEmpty
     private EditText physicianEditText;
     @NotEmpty
@@ -84,7 +86,7 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
 
         caseNumberEditText = (EditText) findViewById(R.id.casenumber_edittext);
         fullNameEditText = (EditText) findViewById(R.id.fullname_edittext);
-        sexEditText = (EditText) findViewById(R.id.sex_edittext);
+        sexSpinner = (Spinner) findViewById(R.id.sex_spinner);
         physicianEditText = (EditText) findViewById(R.id.physician_edittext);
         roomEditText = (EditText) findViewById(R.id.room_edittext);
         dateAdmittedEditText = (EditText) findViewById(R.id.dateadmitted_edittext);
@@ -103,7 +105,7 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
                 if(isFormValid) {
                     final String caseNumber = caseNumberEditText.getText().toString().trim();
                     final String fullname= fullNameEditText.getText().toString().trim();
-                    final String sex = sexEditText.getText().toString().trim();
+                    final String sex = sexSpinner.getSelectedItem().toString().trim();
                     final String physician = physicianEditText.getText().toString().trim();
                     final String room = roomEditText.getText().toString().trim();
                     final String dateAdmitted = dateAdmittedEditText.getText().toString().trim();
@@ -144,6 +146,30 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
                 startActivity(homeIntent);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_addpatient, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_clear) {
+            caseNumberEditText.setText("");
+            fullNameEditText.setText("");
+            physicianEditText.setText("");
+            roomEditText.setText("");
+            dateAdmittedEditText.setText("");
+            timeAdmittedEditText.setText("");
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void loadLoginView() {

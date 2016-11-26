@@ -152,8 +152,13 @@ public class Register extends AppCompatActivity implements Validator.ValidationL
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_exit) {
-            System.exit(0);
+        if (id == R.id.action_clear) {
+            emailEditText.setText("");
+            usernameEditText.setText("");
+            fullNameEditText.setText("");
+            passwordEditText.setText("");
+            confirmPasswordEditText.setText("");
+
             return true;
         }
 
