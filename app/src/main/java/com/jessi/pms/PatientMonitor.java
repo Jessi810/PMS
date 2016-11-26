@@ -26,6 +26,8 @@ import com.jessi.pms.models.Monitor;
 import com.jessi.pms.models.Patient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Jessi on 11/20/2016.
@@ -65,25 +67,6 @@ public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenu
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PopupMenu popupMenu = new PopupMenu(PatientMonitor.this, view);
-                popupMenu.getMenuInflater().inflate(R.menu.popup_patient_monitor, popupMenu.getMenu());
-                popupMenu.show();
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.items_removefrommonitor:
-                                Toast.makeText(getApplicationContext(), "Add to Monitor Clicked", Toast.LENGTH_SHORT).show();
-                                return true;
-                            case R.id.items_cancel:
-                                Toast.makeText(getApplicationContext(), "Cancel Clicked", Toast.LENGTH_SHORT).show();
-                                return true;
-                        }
-
-                        return false;
-                    }
-                });
-
                 idSelected = ((TextView)view.findViewById(R.id.list_id)).getText().toString();
                 String fullName = ((TextView)view.findViewById(R.id.list_fullname)).getText().toString();
                 String nurseAssigned = ((TextView)view.findViewById(R.id.list_nurseassigned)).getText().toString();
@@ -95,6 +78,31 @@ public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenu
                 Log.v("Test", "Nurse: " + nurseAssigned);
                 Log.v("Test", "Room: " + room);
                 Log.v("Test", "Medicines: " + medicines);
+
+                PopupMenu popupMenu = new PopupMenu(PatientMonitor.this, view);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_patient_monitor, popupMenu.getMenu());
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.items_removefrommonitor:
+                                Toast.makeText(getApplicationContext(), "Patient removed from monitoring", Toast.LENGTH_SHORT).show();
+
+                                // Removes patient to monitoring
+                                Map<String, Object> newValue = new HashMap<String, Object>();
+                                newValue.put("monitoring", false);
+                                database.child("Patients").child(idSelected).updateChildren(newValue);
+
+                                return true;
+                            case R.id.items_cancel:
+                                Toast.makeText(getApplicationContext(), "Cancel Clicked", Toast.LENGTH_SHORT).show();
+                                return true;
+                        }
+
+                        return false;
+                    }
+                });
             }
         });
 
@@ -102,11 +110,16 @@ public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenu
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter.clear();
+                String uid;
+                Monitor monitor;
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Monitor monitor = postSnapshot.getValue(Monitor.class);
-                    adapter.add(monitor);
-                    Log.v("Test", dataSnapshot.toString());
+                    monitor = postSnapshot.getValue(Monitor.class);
+
+                    // Add patient to the list if it is monitoring
+                    if(monitor.monitoring) {
+                        adapter.add(monitor);
+                    }
                 }
             }
 
@@ -127,11 +140,8 @@ public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenu
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.items_addtomonitor:
-                Toast.makeText(this, "Add to Monitor Clicked", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.items_delete:
-                database.child("Patients").child(idSelected).setValue(null);
+            case R.id.items_removefrommonitor:
+                //Toast.makeText(this, "Add to Monitor Clicked", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.items_cancel:
                 Toast.makeText(this, "Cancel Clicked", Toast.LENGTH_SHORT).show();

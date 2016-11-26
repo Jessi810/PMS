@@ -26,6 +26,8 @@ import com.jessi.pms.adapters.PatientListAdapter;
 import com.jessi.pms.models.Patient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Jessi on 11/20/2016.
@@ -70,28 +72,6 @@ public class PatientList extends AppCompatActivity implements MenuItem.OnMenuIte
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PopupMenu popupMenu = new PopupMenu(PatientList.this, view);
-                popupMenu.getMenuInflater().inflate(R.menu.popup_patient_list, popupMenu.getMenu());
-                popupMenu.show();
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.items_addtomonitor:
-                                Toast.makeText(getApplicationContext(), "Add to Monitor Clicked", Toast.LENGTH_SHORT).show();
-                                return true;
-                            case R.id.items_delete:
-                                database.child("Patients").child(idSelected).setValue(null);
-                                return true;
-                            case R.id.items_cancel:
-                                Toast.makeText(getApplicationContext(), "Cancel Clicked", Toast.LENGTH_SHORT).show();
-                                return true;
-                        }
-
-                        return false;
-                    }
-                });
-
                 idSelected = ((TextView)view.findViewById(R.id.list_id)).getText().toString();
                 String caseNumber = ((TextView)view.findViewById(R.id.list_casenumber)).getText().toString();
                 String dateTime = ((TextView)view.findViewById(R.id.list_datetime)).getText().toString();
@@ -110,6 +90,34 @@ public class PatientList extends AppCompatActivity implements MenuItem.OnMenuIte
 
                 android.util.Log.v("Test", String.valueOf(position));
                 android.util.Log.v("Test", String.valueOf(id));
+
+                PopupMenu popupMenu = new PopupMenu(PatientList.this, view);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_patient_list, popupMenu.getMenu());
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.items_addtomonitor:
+                                Toast.makeText(getApplicationContext(), "Patient added to monitoring", Toast.LENGTH_SHORT).show();
+
+                                // Adds patient to monitoring
+                                Map<String, Object> newValue = new HashMap<String, Object>();
+                                newValue.put("monitoring", true);
+                                database.child("Patients").child(idSelected).updateChildren(newValue);
+
+                                return true;
+                            case R.id.items_delete:
+                                database.child("Patients").child(idSelected).setValue(null);
+                                return true;
+                            case R.id.items_cancel:
+                                Toast.makeText(getApplicationContext(), "Cancel Clicked", Toast.LENGTH_SHORT).show();
+                                return true;
+                        }
+
+                        return false;
+                    }
+                });
             }
         });
 

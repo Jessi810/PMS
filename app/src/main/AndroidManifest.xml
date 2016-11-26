@@ -34,6 +34,8 @@
             android:label="@string/app_patient_list" />
         <activity android:name=".Log"
             android:label="@string/app_user_log" />
+        <activity android:name=".PatientMonitor"
+            android:label="@string/app_patient_monitor" />
     </application>
 
 </manifest>

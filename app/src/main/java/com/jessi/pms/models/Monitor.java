@@ -11,6 +11,7 @@ public class Monitor {
     public String room;
     public String medicine;
     public String[] medicines;
+    public boolean monitoring;
 
     public Monitor() {}
 
@@ -72,5 +73,13 @@ public class Monitor {
 
     public void setMedicine(String medicine) {
         this.medicine = medicine;
+    }
+
+    public boolean getMonitoring() {
+        return monitoring;
+    }
+
+    public void setMonitoring(boolean monitoring) {
+        this.monitoring = monitoring;
     }
 }

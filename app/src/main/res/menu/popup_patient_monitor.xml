@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.jessi.pms.PatientList">
+    tools:context="com.jessi.pms.PatientMonitor">
     <item
         android:id="@+id/items_removefrommonitor"
         android:orderInCategory="100"
