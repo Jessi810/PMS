@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +36,9 @@ import java.util.Map;
 
 public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 
+    com.github.clans.fab.FloatingActionMenu menuFam;
+    com.github.clans.fab.FloatingActionButton archiveFab, refreshFab;
+
     private FirebaseAuth auth;
     private FirebaseUser user;
     private DatabaseReference database;
@@ -56,6 +60,24 @@ public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenu
             // Not logged in, launch the Log In activity
             loadLoginView();
         }
+
+        menuFam = (com.github.clans.fab.FloatingActionMenu) findViewById(R.id.menu_fam);
+        archiveFab = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.archive_fab);
+        refreshFab = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.refresh_fab);
+
+        archiveFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        refreshFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         // Construct the data source
         ArrayList<Monitor> arrayOfUsers = new ArrayList<>();

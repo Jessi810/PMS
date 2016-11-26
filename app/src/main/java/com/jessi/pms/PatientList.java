@@ -15,6 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +42,9 @@ public class PatientList extends AppCompatActivity implements MenuItem.OnMenuIte
     private DatabaseReference database;
     private ListView patientsListView;
 
+    //FloatingActionMenu fabMenu;
+    FloatingActionButton addPatientFab;
+
     String idSelected;
 
     @Override
@@ -57,10 +62,18 @@ public class PatientList extends AppCompatActivity implements MenuItem.OnMenuIte
             loadLoginView();
         }
 
-        // Set up ListView
-//        final ListView patientsListView = (ListView) findViewById(R.id.patients_listview);
-//        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
-//        patientsListView.setAdapter(adapter);
+        //fabMenu = (FloatingActionMenu) findViewById(R.id.material_design_android_floating_action_menu);
+        addPatientFab = (FloatingActionButton) findViewById(R.id.addpatient_fab);
+
+        addPatientFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addPatientIntent = new Intent(getApplicationContext(), AddPatient.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(addPatientIntent);
+            }
+        });
 
         // Construct the data source
         ArrayList<Patient> arrayOfUsers = new ArrayList<>();
