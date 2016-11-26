@@ -32,13 +32,13 @@ public class UserLogAdapter extends ArrayAdapter<UserLog> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_user_log, parent, false);
         }
 
-        TextView idTextView = (TextView) convertView.findViewById(R.id.list_id);
+        //TextView idTextView = (TextView) convertView.findViewById(R.id.list_id);
         TextView roleTextView = (TextView) convertView.findViewById(R.id.list_role);
         TextView usernameTextView = (TextView) convertView.findViewById(R.id.list_username);
         TextView dateTextView = (TextView) convertView.findViewById(R.id.list_date);
         TextView timeTextView = (TextView) convertView.findViewById(R.id.list_time);
 
-        idTextView.setText(userLog.id);
+        //idTextView.setText(userLog.id);
         roleTextView.setText(userLog.role);
         usernameTextView.setText(userLog.username);
         dateTextView.setText(userLog.date);
