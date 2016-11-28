@@ -34,7 +34,7 @@ import java.util.Map;
  * Created by Jessi on 11/20/2016.
  */
 
-public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
+public class PatientMonitor extends AppCompatActivity {
 
     com.github.clans.fab.FloatingActionMenu menuFam;
     com.github.clans.fab.FloatingActionButton archiveFab, refreshFab;
@@ -68,14 +68,14 @@ public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenu
         archiveFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                menuFam.close(true);
             }
         });
 
         refreshFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                menuFam.close(true);
             }
         });
 
@@ -161,19 +161,5 @@ public class PatientMonitor extends AppCompatActivity implements MenuItem.OnMenu
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.items_removefrommonitor:
-                return true;
-            case R.id.items_delete:
-                return true;
-            case R.id.items_cancel:
-                return true;
-        }
-
-        return false;
     }
 }

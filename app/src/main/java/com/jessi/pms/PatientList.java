@@ -35,7 +35,7 @@ import java.util.Map;
  * Created by Jessi on 11/20/2016.
  */
 
-public class PatientList extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
+public class PatientList extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -159,22 +159,5 @@ public class PatientList extends AppCompatActivity implements MenuItem.OnMenuIte
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.items_addtomonitor:
-                Toast.makeText(this, "Add to Monitor Clicked", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.items_delete:
-                database.child("Patients").child(idSelected).setValue(null);
-                return true;
-            case R.id.items_cancel:
-                Toast.makeText(this, "Cancel Clicked", Toast.LENGTH_SHORT).show();
-                return true;
-        }
-
-        return false;
     }
 }
