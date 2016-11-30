@@ -93,13 +93,11 @@ public class PatientMonitor extends AppCompatActivity {
                 String fullName = ((TextView)view.findViewById(R.id.list_fullname)).getText().toString();
                 String physician = ((TextView)view.findViewById(R.id.list_physician)).getText().toString();
                 String room = ((TextView)view.findViewById(R.id.list_room)).getText().toString();
-                String medicine = ((TextView)view.findViewById(R.id.list_medicine)).getText().toString();
 
                 Log.v("Test", "Id: " + idSelected);
                 Log.v("Test", "FullName: " + fullName);
                 Log.v("Test", "Physician: " + physician);
                 Log.v("Test", "Room: " + room);
-                Log.v("Test", "Medicine: " + medicine);
                 Log.v("Test", String.valueOf(position));
                 Log.v("Test", String.valueOf(id));
 
