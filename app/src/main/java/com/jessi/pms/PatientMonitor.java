@@ -1,5 +1,8 @@
 package com.jessi.pms;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,8 +28,12 @@ import com.jessi.pms.adapters.PatientListAdapter;
 import com.jessi.pms.adapters.PatientMonitorAdapter;
 import com.jessi.pms.models.Monitor;
 import com.jessi.pms.models.Patient;
+import com.jessi.pms.overridden.MyAlarmReceiver;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -122,6 +129,18 @@ public class PatientMonitor extends AppCompatActivity {
                 });
             }
         });
+
+        Calendar cal = Calendar.getInstance();
+        String cdt = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+        Log.v("timelogs", cal.getTime().toString());
+        Log.v("timelogs", cdt);
+        cal.add(Calendar.SECOND, 10);
+        Log.v("timelogs",  cal.getTime().toString());
+
+        Intent intent = new Intent(this, MyAlarmReceiver.class);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 123123123, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmIntent);
 
         database.child("Patients").addValueEventListener(new ValueEventListener() {
             @Override
