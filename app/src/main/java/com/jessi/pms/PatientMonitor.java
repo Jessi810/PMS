@@ -1,5 +1,8 @@
 package com.jessi.pms;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,8 +28,13 @@ import com.jessi.pms.adapters.PatientListAdapter;
 import com.jessi.pms.adapters.PatientMonitorAdapter;
 import com.jessi.pms.models.Monitor;
 import com.jessi.pms.models.Patient;
+import com.jessi.pms.receivers.MedicineAlarmReceiver;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -123,18 +131,94 @@ public class PatientMonitor extends AppCompatActivity {
             }
         });
 
+        final Calendar cal = Calendar.getInstance();
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        final SimpleDateFormat sdtf = new SimpleDateFormat("yyyyMMddH:mm");
+        final String currentDateAndTime = sdf.format(new Date());
+        Log.v("timelog", cal.getTime().toString());
+        Log.v("timelog", currentDateAndTime);
+
+        final Intent intent = new Intent(getApplicationContext(), MedicineAlarmReceiver.class);
+        final AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
         database.child("Patients").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter.clear();
                 Monitor monitor;
+                int ctr = 0;
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     monitor = postSnapshot.getValue(Monitor.class);
+                    Date mDate = new Date();
 
                     // Add patient to the list if it is monitoring
                     if(monitor.monitoring) {
                         adapter.add(monitor);
+                        try {
+                            if(monitor.time1a != null) {
+                                mDate = sdtf.parse(currentDateAndTime + monitor.time1a);
+                                cal.setTime(mDate);
+                                intent.putExtra("rc", ctr++); ctr--;
+                                intent.putExtra("title", monitor.fullname + " needs medicine");
+                                intent.putExtra("content", monitor.drug1 + " in room " + monitor.room);
+                                PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), ctr++, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                alarmManager.setExact(AlarmManager.RTC, cal.getTimeInMillis(), alarmIntent);
+                                Log.v("timelog", cal.getTime().toString());
+                            }
+                            if(monitor.time1b != null) {
+                                mDate = sdtf.parse(currentDateAndTime + monitor.time1b);
+                                cal.setTime(mDate);
+                                intent.putExtra("rc", ctr++); ctr--;
+                                intent.putExtra("title", monitor.fullname + " needs medicine");
+                                intent.putExtra("content", monitor.drug1 + " in room " + monitor.room);
+                                PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), ctr++, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                alarmManager.setExact(AlarmManager.RTC, cal.getTimeInMillis(), alarmIntent);
+                                Log.v("timelog", cal.getTime().toString());
+                            }
+                            if(monitor.time1c != null) {
+                                mDate = sdtf.parse(currentDateAndTime + monitor.time1c);
+                                cal.setTime(mDate);
+                                intent.putExtra("rc", ctr++); ctr--;
+                                intent.putExtra("title", monitor.fullname + " needs medicine");
+                                intent.putExtra("content", monitor.drug1 + " in room " + monitor.room);
+                                PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), ctr++, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                alarmManager.setExact(AlarmManager.RTC, cal.getTimeInMillis(), alarmIntent);
+                                Log.v("timelog", cal.getTime().toString());
+                            }
+                            if(monitor.time2a != null) {
+                                mDate = sdtf.parse(currentDateAndTime + monitor.time2a);
+                                cal.setTime(mDate);
+                                intent.putExtra("rc", ctr++); ctr--;
+                                intent.putExtra("title", monitor.fullname + " needs medicine");
+                                intent.putExtra("content", monitor.drug2 + " in room " + monitor.room);
+                                PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), ctr++, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                alarmManager.setExact(AlarmManager.RTC, cal.getTimeInMillis(), alarmIntent);
+                                Log.v("timelog", cal.getTime().toString());
+                            }
+                            if(monitor.time2b != null) {
+                                mDate = sdtf.parse(currentDateAndTime + monitor.time2b);
+                                cal.setTime(mDate);
+                                intent.putExtra("rc", ctr++); ctr--;
+                                intent.putExtra("title", monitor.fullname + " needs medicine");
+                                intent.putExtra("content", monitor.drug2 + " in room " + monitor.room);
+                                PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), ctr++, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                alarmManager.setExact(AlarmManager.RTC, cal.getTimeInMillis(), alarmIntent);
+                                Log.v("timelog", cal.getTime().toString());
+                            }
+                            if(monitor.time2c != null) {
+                                mDate = sdtf.parse(currentDateAndTime + monitor.time2c);
+                                cal.setTime(mDate);
+                                intent.putExtra("rc", ctr++); ctr--;
+                                intent.putExtra("title", monitor.fullname + " needs medicine");
+                                intent.putExtra("content", monitor.drug2 + " in room " + monitor.room);
+                                PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), ctr++, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                alarmManager.setExact(AlarmManager.RTC, cal.getTimeInMillis(), alarmIntent);
+                                Log.v("timelog", cal.getTime().toString());
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

@@ -38,6 +38,7 @@
             android:label="@string/app_patient_monitor" />
         <activity android:name=".ForgotPassword"
             android:label="@string/app_forgotpassword" />
+        <receiver android:name=".receivers.MedicineAlarmReceiver"></receiver>
     </application>
 
 </manifest>
