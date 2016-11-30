@@ -82,12 +82,31 @@ public class PatientList extends AppCompatActivity {
         // Attach the adapter to a ListView
         ListView listView = (ListView) findViewById(R.id.patients_listview);
         listView.setAdapter(adapter);
+
+        database.child("Patients").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                adapter.clear();
+                Patient patient;
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    patient = postSnapshot.getValue(Patient.class);
+                    adapter.add(patient);
+                    Log.v("Test", dataSnapshot.toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 idSelected = ((TextView)view.findViewById(R.id.list_id)).getText().toString();
-                String caseNumber = ((TextView)view.findViewById(R.id.list_casenumber)).getText().toString();
+                final String caseNumber = ((TextView)view.findViewById(R.id.list_casenumber)).getText().toString();
                 String dateTime = ((TextView)view.findViewById(R.id.list_datetime)).getText().toString();
                 String fullName = ((TextView)view.findViewById(R.id.list_fullname)).getText().toString();
                 String sex = ((TextView)view.findViewById(R.id.list_sex)).getText().toString();
@@ -111,6 +130,7 @@ public class PatientList extends AppCompatActivity {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+
                         switch (item.getItemId()) {
                             case R.id.items_addtomonitor:
                                 Toast.makeText(getApplicationContext(), "Patient added to monitoring.", Toast.LENGTH_SHORT).show();
@@ -122,34 +142,16 @@ public class PatientList extends AppCompatActivity {
 
                                 return true;
                             case R.id.items_delete:
+                                Toast.makeText(getApplicationContext(), "Patient deleted.", Toast.LENGTH_SHORT).show();
                                 database.child("Patients").child(idSelected).setValue(null);
                                 return true;
                             case R.id.items_cancel:
-                                Toast.makeText(getApplicationContext(), "Cancel Clicked", Toast.LENGTH_SHORT).show();
                                 return true;
                         }
 
                         return false;
                     }
                 });
-            }
-        });
-
-        database.child("Patients").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                adapter.clear();
-
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Patient patient = postSnapshot.getValue(Patient.class);
-                    adapter.add(patient);
-                    Log.v("Test", dataSnapshot.toString());
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }

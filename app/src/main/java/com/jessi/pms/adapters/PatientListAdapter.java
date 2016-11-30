@@ -1,11 +1,13 @@
 package com.jessi.pms.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jessi.pms.R;
@@ -43,22 +45,20 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
         TextView sexTextView = (TextView) convertView.findViewById(R.id.list_sex);
         TextView physicianTextView = (TextView) convertView.findViewById(R.id.list_physician);
         TextView roomTextView = (TextView) convertView.findViewById(R.id.list_room);
+        RelativeLayout masterListPatient = (RelativeLayout) convertView.findViewById(R.id.masterlist_patients);
 
         // Populate the data into the template view using the data object
         idTextView.setText(patient.id);
-        caseNumberTextView.setText(patient.caseNumber);
-        dateTimeTextView.setText(patient.dateAdmitted + " " + patient.timeAdmitted);
+        caseNumberTextView.setText("Case #: " + patient.caseNumber);
+        dateTimeTextView.setText("Admitted: " + patient.dateAdmitted + " " + patient.timeAdmitted);
         fullNameTextView.setText(patient.fullname);
-        sexTextView.setText(patient.sex);
-        physicianTextView.setText(patient.physician);
-        roomTextView.setText(patient.room);
+        sexTextView.setText("Gender: " + patient.sex);
+        physicianTextView.setText("Physician: " + patient.physician);
+        roomTextView.setText("Room: " + patient.room);
 
-        caseNumberTextView.setTag("caseNumber" + position);
-        dateTimeTextView.setTag("dateTime" + position);
-        fullNameTextView.setTag("fullName" + position);
-        sexTextView.setTag("sex" + position);
-        physicianTextView.setTag("physician" + position);
-        roomTextView.setTag("room" + position);
+        if (patient.isMonitoring()) {
+            //masterListPatient.setBackgroundColor(0xFFc68c53);
+        }
 
         // Return the completed view to render on screen
         return convertView;
