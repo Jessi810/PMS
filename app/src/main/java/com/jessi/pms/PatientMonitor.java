@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -93,15 +94,15 @@ public class PatientMonitor extends AppCompatActivity {
                 String fullName = ((TextView)view.findViewById(R.id.list_fullname)).getText().toString();
                 String physician = ((TextView)view.findViewById(R.id.list_physician)).getText().toString();
                 String room = ((TextView)view.findViewById(R.id.list_room)).getText().toString();
-                String medicine = ((TextView)view.findViewById(R.id.list_medicine)).getText().toString();
+                String drug1 = ((TextView)view.findViewById(R.id.med1_drug)).getText().toString();
+                String drug2 = ((TextView)view.findViewById(R.id.med2_drug)).getText().toString();
 
                 Log.v("Test", "Id: " + idSelected);
                 Log.v("Test", "FullName: " + fullName);
                 Log.v("Test", "Physician: " + physician);
                 Log.v("Test", "Room: " + room);
-                Log.v("Test", "Medicine: " + medicine);
-                Log.v("Test", String.valueOf(position));
-                Log.v("Test", String.valueOf(id));
+                Log.v("Test", "Drug 1: " + drug1);
+                Log.v("Test", "Drug 2: " + drug2);
 
                 PopupMenu popupMenu = new PopupMenu(PatientMonitor.this, view);
                 popupMenu.getMenuInflater().inflate(R.menu.popup_patient_monitor, popupMenu.getMenu());
@@ -141,7 +142,6 @@ public class PatientMonitor extends AppCompatActivity {
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     monitor = postSnapshot.getValue(Monitor.class);
-
                     // Add patient to the list if it is monitoring
                     if(monitor.monitoring) {
                         adapter.add(monitor);
