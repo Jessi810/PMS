@@ -21,8 +21,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jessi.pms.adapters.MedicineAdapter;
 import com.jessi.pms.adapters.PatientListAdapter;
 import com.jessi.pms.adapters.PatientMonitorAdapter;
+import com.jessi.pms.models.Medicine;
 import com.jessi.pms.models.Monitor;
 import com.jessi.pms.models.Patient;
 
@@ -81,8 +83,10 @@ public class PatientMonitor extends AppCompatActivity {
 
         // Construct the data source
         ArrayList<Monitor> arrayOfUsers = new ArrayList<>();
+        ArrayList<Medicine> arrayOfMedicines = new ArrayList<>();
         // Create the adapter to convert the array to views
         final PatientMonitorAdapter adapter = new PatientMonitorAdapter(this, arrayOfUsers);
+        final MedicineAdapter medAdapter = new MedicineAdapter(this, arrayOfMedicines);
         // Attach the adapter to a ListView
         ListView listView = (ListView) findViewById(R.id.patient_monitor_listview);
         listView.setAdapter(adapter);
@@ -138,6 +142,7 @@ public class PatientMonitor extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter.clear();
                 Monitor monitor;
+                Medicine medicine;
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     monitor = postSnapshot.getValue(Monitor.class);
