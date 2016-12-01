@@ -97,6 +97,12 @@ public class AddPatient extends AppCompatActivity implements Validator.Validatio
         cancelButton = (Button) findViewById(R.id.cancel_button);
         loadingProgressBar = (ProgressBar) findViewById(R.id.loading_progressbar);
         loadingProgressBar.setVisibility(View.GONE);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+        SimpleDateFormat stf = new SimpleDateFormat("H:mm");
+        String currentDate = sdf.format(new Date());
+        String currentTime = stf.format(new Date());
+        dateAdmittedEditText.setText(currentDate);
+        timeAdmittedEditText.setText(currentTime);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override

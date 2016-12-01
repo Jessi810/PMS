@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.jessi.pms.Log">
+    <item
+        android:id="@+id/items_delete"
+        android:orderInCategory="200"
+        android:title="@string/items_delete"
+        android:visible="true" />
+</menu>

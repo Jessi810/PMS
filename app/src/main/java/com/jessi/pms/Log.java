@@ -4,7 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +25,8 @@ import com.jessi.pms.models.Patient;
 import com.jessi.pms.models.UserLog;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Jessi on 11/21/2016.
@@ -31,6 +38,8 @@ public class Log extends AppCompatActivity {
     private FirebaseUser user;
     private DatabaseReference database;
     private ListView userLogListView;
+    String keySelected = "";
+    TextView keyTextView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +56,8 @@ public class Log extends AppCompatActivity {
             loadLoginView();
         }
 
+
+
         // Construct the data source
         ArrayList<UserLog> arrayOfUsers = new ArrayList<>();
         // Create the adapter to convert the array to views
@@ -54,6 +65,31 @@ public class Log extends AppCompatActivity {
         // Attach the adapter to a ListView
         userLogListView = (ListView) findViewById(R.id.userlog_listview);
         userLogListView.setAdapter(adapter);
+        userLogListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                keyTextView = (TextView) findViewById(R.id.list_key);
+                keySelected = keyTextView.getText().toString().trim();
+                android.util.Log.v("logs", keySelected);
+
+                PopupMenu popupMenu = new PopupMenu(Log.this, view);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_log, popupMenu.getMenu());
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.items_delete:
+                                Toast.makeText(getApplicationContext(), "Log deleted.", Toast.LENGTH_LONG).show();
+                                database.child("Logs").child(keySelected).setValue(null);
+                                return true;
+                        }
+
+                        return false;
+                    }
+                });
+            }
+        });
 
         database.child("Logs").addValueEventListener(new ValueEventListener() {
             @Override
