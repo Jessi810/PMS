@@ -1,6 +1,7 @@
 package com.jessi.pms;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -62,6 +63,7 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
     private String currentUsername;
     private String role;
     private String uid;
+    private String fullname;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,9 +113,11 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 currentUsername = dataSnapshot.child("username").getValue().toString();
                                                 role = dataSnapshot.child("role").getValue().toString();
+                                                fullname = dataSnapshot.child("fullname").getValue().toString();
                                                 Log.v("Logs", userId);
                                                 Log.v("Logs", currentUsername);
                                                 Log.v("Logs", role);
+                                                Log.v("Logs", fullname);
 
                                                 Date date = new Date();
                                                 DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
@@ -128,6 +132,27 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
                                                 Log.v("Logs", lkey);
                                                 UserLog log = new UserLog(lkey, userId, role, currentUsername, dateFormat.format(date), timeFormat.format(date));
                                                 database.child("Logs").child(lkey).setValue(log);
+
+                                                Log.v("sharedpref", "SAVING");
+                                                SharedPreferences settings = getSharedPreferences("userInfo", 0);
+                                                try {
+                                                    Log.v("sharedpref", "TRY");
+//                                            String userFullName = settings.getString("setting_ufn", fullname);
+//                                            String userRole = settings.getString("setting_ur", role);
+//                                            String userName = settings.getString("setting_un", currentUsername);
+
+                                                    SharedPreferences.Editor editor = settings.edit();
+                                                    editor.putString("setting_ufn", fullname);
+                                                    editor.putString("setting_ur", role);
+                                                    editor.putString("setting_un", currentUsername);
+                                                    Log.v("sharedpref", fullname);
+                                                    Log.v("sharedpref", role);
+                                                    Log.v("sharedpref", currentUsername);
+                                                    editor.commit();
+                                                } catch (Exception e) {
+                                                    Log.v("sharedpref", "ELSE");
+                                                    Log.v("sharedpref", e.getMessage());
+                                                }
                                             }
 
                                             @Override

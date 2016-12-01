@@ -1,6 +1,7 @@
 package com.jessi.pms;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,11 +46,13 @@ public class Profile extends AppCompatActivity implements Validator.ValidationLi
     @Length(min = 2, max = 100)
     private EditText fullnameEditText;
 
-
+    SharedPreferences settings;
+    SharedPreferences.Editor editor;
 
     private Button saveButton, cancelButton, changePasswordButton;
     private boolean isFormValid = false;
     private ProgressBar loadingProgressBar;
+    private TextView roleTextView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,12 +68,20 @@ public class Profile extends AppCompatActivity implements Validator.ValidationLi
             loadLoginView();
         }
 
+        settings = getSharedPreferences("userInfo", 0);
+        editor = settings.edit();
+
         database = FirebaseDatabase.getInstance().getReference();
 
         validator = new Validator(this);
         validator.setValidationListener(this);
 
         fullnameEditText = (EditText) findViewById(R.id.fullname_edittext);
+        fullnameEditText.setText(settings.getString("setting_ufn", ""));
+
+        roleTextView = (TextView) findViewById(R.id.role_textview);
+        roleTextView.setText(settings.getString("setting_ur", ""));
+
         saveButton = (Button) findViewById(R.id.save_button);
         cancelButton = (Button) findViewById(R.id.cancel_button);
         changePasswordButton = (Button) findViewById(R.id.changepassword_button);
