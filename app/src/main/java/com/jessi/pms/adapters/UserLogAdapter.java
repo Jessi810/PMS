@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.jessi.pms.R;
-import com.jessi.pms.models.Patient;
 import com.jessi.pms.models.UserLog;
 
 import java.util.ArrayList;

@@ -19,14 +19,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.jessi.pms.adapters.PatientListAdapter;
 import com.jessi.pms.adapters.UserLogAdapter;
-import com.jessi.pms.models.Patient;
 import com.jessi.pms.models.UserLog;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Jessi on 11/21/2016.

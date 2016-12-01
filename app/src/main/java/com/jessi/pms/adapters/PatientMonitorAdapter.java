@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.jessi.pms.R;
 import com.jessi.pms.models.Monitor;
-import com.jessi.pms.models.Patient;
 
 import java.util.ArrayList;
 import java.util.HashMap;

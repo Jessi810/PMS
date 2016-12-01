@@ -1,7 +1,6 @@
 package com.jessi.pms.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +10,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jessi.pms.R;
-import com.jessi.pms.models.Patient;
+import com.jessi.pms.models.Patient.Patient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Jessi on 11/21/2016.

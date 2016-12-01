@@ -1,4 +1,4 @@
-package com.jessi.pms.models;
+package com.jessi.pms.models.Patient;
 
 /**
  * Created by Jessi on 11/20/2016.
