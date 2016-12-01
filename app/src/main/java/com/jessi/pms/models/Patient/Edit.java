@@ -5,6 +5,7 @@ package com.jessi.pms.models.Patient;
  */
 
 public class Edit {
+    public String key;
     public String fullname;
     public String physician;
     public String dateAdmitted;
@@ -22,16 +23,14 @@ public class Edit {
     public Edit() {
     }
 
-    public Edit(String fullname, String physician, String dateAdmitted, String timeAdmitted, String room) {
+    public Edit(String key, String fullname, String physician, String room) {
+        this.key = key;
         this.fullname = fullname;
         this.physician = physician;
-        this.dateAdmitted = dateAdmitted;
-        this.timeAdmitted = timeAdmitted;
         this.room = room;
     }
 
-    public Edit(String drug1, String drug2, String time1a, String time1b, String time1c,
-                String time2a, String time2b, String time2c) {
+    public Edit(String drug1, String drug2, String time1a, String time1b, String time1c, String time2a, String time2b, String time2c) {
         this.drug1 = drug1;
         this.drug2 = drug2;
         this.time1a = time1a;
@@ -42,13 +41,10 @@ public class Edit {
         this.time2c = time2c;
     }
 
-    public Edit(String fullname, String physician, String dateAdmitted, String timeAdmitted,
-                String room, String drug1, String drug2, String time1a, String time1b,
-                String time1c, String time2a, String time2b, String time2c) {
+    public Edit(String key, String fullname, String physician, String room, String drug1, String drug2, String time1a, String time1b, String time1c, String time2a, String time2b, String time2c) {
+        this.key = key;
         this.fullname = fullname;
         this.physician = physician;
-        this.dateAdmitted = dateAdmitted;
-        this.timeAdmitted = timeAdmitted;
         this.room = room;
         this.drug1 = drug1;
         this.drug2 = drug2;
@@ -58,6 +54,14 @@ public class Edit {
         this.time2a = time2a;
         this.time2b = time2b;
         this.time2c = time2c;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getFullname() {

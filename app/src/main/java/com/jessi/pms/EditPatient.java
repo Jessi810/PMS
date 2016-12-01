@@ -14,12 +14,18 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jessi on 12/1/2016.
@@ -33,7 +39,8 @@ public class EditPatient extends AppCompatActivity implements Validator.Validati
 
     private Button saveButton, cancelButton;
     private ProgressBar loadingProgressBar;
-    private EditText fullNameEditText, physicianEditText, dateAdmittedEditText, timeAdmittedEditText, roomEditText;
+    @NotEmpty
+    private EditText fullNameEditText, physicianEditText, roomEditText;
 
     private boolean isFormValid = false;
     private String id, fullname, physican, room;
@@ -73,6 +80,9 @@ public class EditPatient extends AppCompatActivity implements Validator.Validati
             loadLoginView();
         }
 
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
         loadingProgressBar = (ProgressBar) findViewById(R.id.loading_progressbar);
         loadingProgressBar.setVisibility(View.GONE);
         fullNameEditText = (EditText) findViewById(R.id.fullname_edittext);
@@ -85,9 +95,6 @@ public class EditPatient extends AppCompatActivity implements Validator.Validati
         physicianEditText.setText(physican);
         roomEditText.setText(room);
 
-        validator = new Validator(this);
-        validator.setValidationListener(this);
-
         database = FirebaseDatabase.getInstance().getReference();
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +104,44 @@ public class EditPatient extends AppCompatActivity implements Validator.Validati
                 validator.validate();
 
                 if (isFormValid) {
+                    Log.v("intentTest", "CHANGING");
+                    String newFullName = fullNameEditText.getText().toString().trim();
+                    String newPhysician = physicianEditText.getText().toString().trim();
+                    String newRoom = roomEditText.getText().toString().trim();
 
+                    Map<String, Object> newInfo = new HashMap<String, Object>();
+                    newInfo.put("fullname", newFullName);
+                    newInfo.put("physician", newPhysician);
+                    newInfo.put("room", newRoom);
+                    database.child("Patients").child(id).updateChildren(newInfo);
+                    database.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                            Log.v("intentTest", "CHANGE SUCCESS");
+                            Toast.makeText(EditPatient.this, "Patient edited successfully.", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    loadingProgressBar.setVisibility(View.GONE);
                 }
             }
         });
@@ -105,7 +149,7 @@ public class EditPatient extends AppCompatActivity implements Validator.Validati
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent patientListIntent = new Intent(getApplicationContext(), EditPatient.class)
+                Intent patientListIntent = new Intent(getApplicationContext(), PatientList.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(patientListIntent);
@@ -122,11 +166,13 @@ public class EditPatient extends AppCompatActivity implements Validator.Validati
 
     @Override
     public void onValidationSucceeded() {
+        Log.v("intentTest", "VALID");
         isFormValid = true;
     }
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
+        Log.v("intentTest", "INVALID");
         isFormValid = false;
 
         for (ValidationError error : errors) {
