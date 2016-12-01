@@ -56,7 +56,7 @@ public class Log extends AppCompatActivity {
             loadLoginView();
         }
 
-
+        keyTextView = (TextView) findViewById(R.id.list_key);
 
         // Construct the data source
         ArrayList<UserLog> arrayOfUsers = new ArrayList<>();
@@ -68,8 +68,7 @@ public class Log extends AppCompatActivity {
         userLogListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                keyTextView = (TextView) findViewById(R.id.list_key);
-                keySelected = keyTextView.getText().toString().trim();
+                keySelected = ((TextView)view.findViewById(R.id.list_key)).getText().toString();
                 android.util.Log.v("logs", keySelected);
 
                 PopupMenu popupMenu = new PopupMenu(Log.this, view);

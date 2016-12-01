@@ -116,8 +116,8 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
                                                 Log.v("Logs", role);
 
                                                 Date date = new Date();
-                                                DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                                                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                                                DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+                                                DateFormat timeFormat = new SimpleDateFormat("H:mm:ss");
 
 //                                                UserLog userLog = new UserLog(userId, role, currentUsername, dateFormat.format(date), timeFormat.format(date));
 //                                                uid = database.child("Logs").push().getKey();
