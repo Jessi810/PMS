@@ -137,9 +137,6 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
                                                 SharedPreferences settings = getSharedPreferences("userInfo", 0);
                                                 try {
                                                     Log.v("sharedpref", "TRY");
-//                                            String userFullName = settings.getString("setting_ufn", fullname);
-//                                            String userRole = settings.getString("setting_ur", role);
-//                                            String userName = settings.getString("setting_un", currentUsername);
 
                                                     SharedPreferences.Editor editor = settings.edit();
                                                     editor.putString("setting_ufn", fullname);

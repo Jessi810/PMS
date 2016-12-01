@@ -12,4 +12,12 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.jessi.pms.Home"
     tools:showIn="@layout/activity_home">
+
+    <TextView
+        android:text="Hello"
+        android:id="@+id/welcome_textview"
+        android:layout_width="match_parent"
+        android:textStyle="normal"
+        android:textSize="24sp"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

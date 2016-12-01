@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.*;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -113,6 +114,15 @@ public class Profile extends AppCompatActivity implements Validator.ValidationLi
                         @Override
                         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                             Toast.makeText(Profile.this, "Account is updated!", Toast.LENGTH_LONG).show();
+                            String newFullName = "";
+                            try {
+                                newFullName = dataSnapshot.getValue().toString();
+                                editor.putString("setting_ufn", newFullName);
+                                editor.commit();
+                            } catch (Exception e) {
+                                android.util.Log.v("sharedpref", e.getMessage());
+                            }
+                            android.util.Log.v("sharedpref", newFullName);
                             loadingProgressBar.setVisibility(View.GONE);
                         }
 
