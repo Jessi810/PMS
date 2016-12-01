@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.jessi.pms.PatientList">
     <item
+        android:id="@+id/items_editmedicine"
+        android:orderInCategory="80"
+        android:title="@string/items_editmedicine"
+        android:visible="true" />
+    <item
         android:id="@+id/items_removefrommonitor"
         android:orderInCategory="100"
         android:title="@string/items_removefrommonitor"

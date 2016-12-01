@@ -38,6 +38,13 @@
     <string name="app_forgotpassword">Forgot Password</string>
     <string name="app_editpatient">Edit Patient</string>
     <string name="items_editpatient">Edit</string>
+    <string name="hint_medicine1">Medicine</string>
+    <string name="hint_time1">Time 1</string>
+    <string name="hint_time2">Time 2</string>
+    <string name="hint_time3">Time 3</string>
+    <string name="app_editmedicine">Medicine</string>
+    <string name="action_editmedicine">Medicine</string>
+    <string name="items_editmedicine">Medicine</string>
     <string-array name="roles_array">
         <item>Nurse</item>
         <item>Head Nurse</item>

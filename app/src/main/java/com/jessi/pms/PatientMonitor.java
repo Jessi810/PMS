@@ -99,6 +99,14 @@ public class PatientMonitor extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 idSelected = ((TextView)view.findViewById(R.id.list_id)).getText().toString();
+                final String drug1 = ((TextView)view.findViewById(R.id.med1_drug)).getText().toString();
+                final String drug2 = ((TextView)view.findViewById(R.id.med2_drug)).getText().toString();
+                final String time1a = ((TextView)view.findViewById(R.id.med1_time1)).getText().toString();
+                final String time1b = ((TextView)view.findViewById(R.id.med1_time2)).getText().toString();
+                final String time1c = ((TextView)view.findViewById(R.id.med1_time3)).getText().toString();
+                final String time2a = ((TextView)view.findViewById(R.id.med2_time1)).getText().toString();
+                final String time2b = ((TextView)view.findViewById(R.id.med2_time2)).getText().toString();
+                final String time2c = ((TextView)view.findViewById(R.id.med2_time3)).getText().toString();
 
                 Log.v("Test", "Id: " + idSelected);
 
@@ -109,6 +117,21 @@ public class PatientMonitor extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
+                            case R.id.items_editmedicine:
+                                Intent editMedicineIntent = new Intent(getApplicationContext(), EditMedicine.class);
+                                editMedicineIntent.putExtra("id", idSelected);
+                                editMedicineIntent.putExtra("drug1", drug1);
+                                editMedicineIntent.putExtra("drug2", drug2);
+                                editMedicineIntent.putExtra("time1a", time1a);
+                                editMedicineIntent.putExtra("time1b", time1b);
+                                editMedicineIntent.putExtra("time1c", time1c);
+                                editMedicineIntent.putExtra("time2a", time2a);
+                                editMedicineIntent.putExtra("time2b", time2b);
+                                editMedicineIntent.putExtra("time2c", time2c);
+
+                                startActivity(editMedicineIntent);
+
+                                return true;
                             case R.id.items_removefrommonitor:
                                 Toast.makeText(getApplicationContext(), "Patient removed to monitoring.", Toast.LENGTH_SHORT).show();
 

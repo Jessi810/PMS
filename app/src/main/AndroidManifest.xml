@@ -40,6 +40,8 @@
             android:label="@string/app_forgotpassword" />
         <activity android:name=".EditPatient"
             android:label="@string/app_editpatient" />
+        <activity android:name=".EditMedicine"
+            android:label="@string/app_editmedicine" />
         <receiver android:name=".receivers.MedicineAlarmReceiver"></receiver>
     </application>
 
