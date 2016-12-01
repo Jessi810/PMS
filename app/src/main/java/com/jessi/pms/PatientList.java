@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class PatientList extends AppCompatActivity {
 
     //FloatingActionMenu fabMenu;
     FloatingActionButton addPatientFab;
+    ProgressBar loadingProgressBar;
 
     String idSelected;
 
@@ -61,6 +63,8 @@ public class PatientList extends AppCompatActivity {
             // Not logged in, launch the Log In activity
             loadLoginView();
         }
+
+        loadingProgressBar = (ProgressBar) findViewById(R.id.loading_progressbar);
 
         //fabMenu = (FloatingActionMenu) findViewById(R.id.material_design_android_floating_action_menu);
         addPatientFab = (FloatingActionButton) findViewById(R.id.addpatient_fab);
@@ -80,7 +84,7 @@ public class PatientList extends AppCompatActivity {
         // Create the adapter to convert the array to views
         final PatientListAdapter adapter = new PatientListAdapter(this, arrayOfUsers);
         // Attach the adapter to a ListView
-        ListView listView = (ListView) findViewById(R.id.patients_listview);
+        final ListView listView = (ListView) findViewById(R.id.patients_listview);
         listView.setAdapter(adapter);
 
         database.child("Patients").addValueEventListener(new ValueEventListener() {
@@ -93,6 +97,9 @@ public class PatientList extends AppCompatActivity {
                     patient = postSnapshot.getValue(Patient.class);
                     adapter.add(patient);
                     Log.v("Test", dataSnapshot.toString());
+                    if(listView.getCount() != 0) {
+                        loadingProgressBar.setVisibility(View.GONE);
+                    }
                 }
             }
 

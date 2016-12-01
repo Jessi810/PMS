@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,7 @@ public class PatientMonitor extends AppCompatActivity {
     private ListView patientsListView;
 
     String idSelected;
+    ProgressBar loadingProgressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +75,8 @@ public class PatientMonitor extends AppCompatActivity {
         archiveFab = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.archive_fab);
         refreshFab = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.refresh_fab);
 
+        loadingProgressBar = (ProgressBar) findViewById(R.id.loading_progressbar);
+
         archiveFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +96,7 @@ public class PatientMonitor extends AppCompatActivity {
         // Create the adapter to convert the array to views
         final PatientMonitorAdapter adapter = new PatientMonitorAdapter(this, arrayOfUsers);
         // Attach the adapter to a ListView
-        ListView listView = (ListView) findViewById(R.id.patient_monitor_listview);
+        final ListView listView = (ListView) findViewById(R.id.patient_monitor_listview);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -218,6 +222,9 @@ public class PatientMonitor extends AppCompatActivity {
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();
+                        }
+                        if(listView.getCount() != 0) {
+                            loadingProgressBar.setVisibility(View.GONE);
                         }
                     }
                 }

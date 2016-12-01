@@ -76,11 +76,11 @@
             fab:fab_size="mini" />
     </com.github.clans.fab.FloatingActionMenu>
 
-    <!--<ProgressBar-->
-        <!--style="?android:attr/progressBarStyleLarge"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:id="@+id/loading_progressbar" />-->
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/loading_progressbar" />
 </RelativeLayout>

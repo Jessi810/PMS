@@ -33,6 +33,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/loading_progressbar" />
+
     <!--<com.github.clans.fab.FloatingActionMenu-->
         <!--android:id="@+id/material_design_android_floating_action_menu"-->
         <!--android:layout_width="wrap_content"-->
