@@ -93,7 +93,6 @@ public class PatientList extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     patient = postSnapshot.getValue(Patient.class);
                     adapter.add(patient);
-                    Log.v("Test", dataSnapshot.toString());
                     if(listView.getCount() != 0) {
                         loadingProgressBar.setVisibility(View.GONE);
                     }
@@ -107,23 +106,17 @@ public class PatientList extends AppCompatActivity {
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
 
                 idSelected = ((TextView)view.findViewById(R.id.list_id)).getText().toString();
                 final String caseNumber = ((TextView)view.findViewById(R.id.list_casenumber)).getText().toString();
-                String dateTime = ((TextView)view.findViewById(R.id.list_datetime)).getText().toString();
-                String fullName = ((TextView)view.findViewById(R.id.list_fullname)).getText().toString();
-                String sex = ((TextView)view.findViewById(R.id.list_sex)).getText().toString();
-                String physician = ((TextView)view.findViewById(R.id.list_physician)).getText().toString();
-                String room = ((TextView)view.findViewById(R.id.list_room)).getText().toString();
+                final String date = ((TextView)view.findViewById(R.id.list_date)).getText().toString();
+                final String time = ((TextView)view.findViewById(R.id.list_time)).getText().toString();
+                final String fullName = ((TextView)view.findViewById(R.id.list_fullname)).getText().toString();
+                final String sex = ((TextView)view.findViewById(R.id.list_sex)).getText().toString();
+                final String physician = ((TextView)view.findViewById(R.id.list_physician)).getText().toString();
+                final String room = ((TextView)view.findViewById(R.id.list_room)).getText().toString();
 
-                android.util.Log.v("Test", "Id: " + idSelected);
-                android.util.Log.v("Test", "Case#: " + caseNumber);
-                android.util.Log.v("Test", "DateTime: " + dateTime);
-                android.util.Log.v("Test", "FullName: " + fullName);
-                android.util.Log.v("Test", "Sex: " + sex);
-                android.util.Log.v("Test", "Physician: " + physician);
-                android.util.Log.v("Test", "Room: " + room);
 
                 android.util.Log.v("Test", String.valueOf(position));
                 android.util.Log.v("Test", String.valueOf(id));
@@ -143,6 +136,23 @@ public class PatientList extends AppCompatActivity {
                                 Map<String, Object> newValues = new HashMap<>();
                                 newValues.put("monitoring", true);
                                 database.child("Patients").child(idSelected).updateChildren(newValues);
+
+                                return true;
+                            case R.id.items_editpatient:
+
+//                                android.util.Log.v("Test", "Id: " + idSelected);
+//                                android.util.Log.v("Test", "Case#: " + caseNumber);
+//                                android.util.Log.v("Test", "FullName: " + fullName);
+//                                android.util.Log.v("Test", "Sex: " + sex);
+//                                android.util.Log.v("Test", "Physician: " + physician);
+//                                android.util.Log.v("Test", "Room: " + room);
+
+                                Intent editPatientIntent = new Intent(getApplicationContext(), EditPatient.class);
+                                editPatientIntent.putExtra("Id", idSelected);
+                                editPatientIntent.putExtra("Fullname", fullName);
+                                editPatientIntent.putExtra("Physician", physician);
+                                editPatientIntent.putExtra("Room", room);
+                                startActivity(editPatientIntent);
 
                                 return true;
                             case R.id.items_delete:

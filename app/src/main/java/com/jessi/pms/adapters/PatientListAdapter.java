@@ -38,7 +38,8 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
         // Lookup view for data population
         TextView idTextView = (TextView) convertView.findViewById(R.id.list_id);
         TextView caseNumberTextView = (TextView) convertView.findViewById(R.id.list_casenumber);
-        TextView dateTimeTextView = (TextView) convertView.findViewById(R.id.list_datetime);
+        TextView dateTimeTextView = (TextView) convertView.findViewById(R.id.list_date);
+        TextView timeTimeTextView = (TextView) convertView.findViewById(R.id.list_time);
         TextView fullNameTextView = (TextView) convertView.findViewById(R.id.list_fullname);
         TextView sexTextView = (TextView) convertView.findViewById(R.id.list_sex);
         TextView physicianTextView = (TextView) convertView.findViewById(R.id.list_physician);
@@ -48,7 +49,8 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
         // Populate the data into the template view using the data object
         idTextView.setText(patient.id);
         caseNumberTextView.setText("Case #: " + patient.caseNumber);
-        dateTimeTextView.setText("Admitted: " + patient.dateAdmitted + " " + patient.timeAdmitted);
+        dateTimeTextView.setText("Admitted: " + patient.dateAdmitted);
+        timeTimeTextView.setText(patient.timeAdmitted);
         fullNameTextView.setText(patient.fullname);
         sexTextView.setText("Gender: " + patient.sex);
         physicianTextView.setText("Physician: " + patient.physician);

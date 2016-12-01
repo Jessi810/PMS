@@ -8,6 +8,11 @@
         android:title="@string/items_addtomonitor"
         android:visible="true" />
     <item
+        android:id="@+id/items_editpatient"
+        android:orderInCategory="120"
+        android:title="@string/items_editpatient"
+        android:visible="true" />
+    <item
         android:id="@+id/items_delete"
         android:orderInCategory="200"
         android:title="@string/items_delete"

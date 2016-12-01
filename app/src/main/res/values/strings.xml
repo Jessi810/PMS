@@ -36,6 +36,8 @@
     <string name="action_patientmonitor">Patient Monitoring</string>
     <string name="action_clear">Clear</string>
     <string name="app_forgotpassword">Forgot Password</string>
+    <string name="app_editpatient">Edit Patient</string>
+    <string name="items_editpatient">Edit</string>
     <string-array name="roles_array">
         <item>Nurse</item>
         <item>Head Nurse</item>
